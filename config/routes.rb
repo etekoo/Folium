@@ -10,17 +10,16 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
-  root 'public/homes#top' # TOPページ
+  root 'public/homes#top'                                     # TOPページ
 
-  # その他のルーティングは以下のように整理します。
-
+ 
   scope module: :public do
-    get 'homes/about' # aboutページ
+    get 'homes/about'                                         # aboutページ
     resources :communities do
-      resources :communitymembers, only: [:create, :destroy] # コミュニティメンバー関連
+      resources :communitymembers, only: [:create, :destroy]  # コミュニティメンバー関連
     end
-    resources :comments, only: [:create, :destroy] # コメント関連
-    resources :plant_diaries # プラントダイアリー関連
+    resources :comments, only: [:create, :destroy]            # コメント関連
+    resources :plant_diaries                                  # プラントダイアリー関連
     resources :users, only: [:show, :edit, :update] do
       get 'mypage', on: :collection
       get 'unsubscribe', on: :member
@@ -29,8 +28,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :communities, only: [:index, :show, :destroy] # 管理者用コミュニティ関連
+    resources :communities, only: [:index, :show, :destroy]   # 管理者用コミュニティ関連
     resources :plant_diaries, only: [:index, :show, :destroy] # 管理者用プラントダイアリー関連
-    resources :users, only: [:index, :show, :edit, :update] # 管理者用ユーザー関連
+    resources :users, only: [:index, :show, :edit, :update]   # 管理者用ユーザー関連
   end
 end
