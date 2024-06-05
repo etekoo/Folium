@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2024_06_04_052243) do
   end
 
   create_table "plant_diaries", force: :cascade do |t|
+    t.integer "user_id", null: false
     t.string "title", null: false
     t.text "content", null: false
     t.datetime "created_at", precision: 6, null: false

@@ -28,4 +28,4 @@ User.create!(
   is_active: true
 )
 
-puts 'データを追加しました。'
+puts '初期データを追加しました。'

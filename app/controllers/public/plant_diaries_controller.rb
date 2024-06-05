@@ -1,5 +1,4 @@
 class Public::PlantDiariesController < ApplicationController
-  before_action :set_plant_diary, only: [:show, :edit, :update, :destroy]
 
   def new
     @plant_diary = PlantDiary.new
@@ -10,10 +9,22 @@ class Public::PlantDiariesController < ApplicationController
   end
 
   def show
+    @plant_diary = PlantDiary.find(params[:id])
   end
 
   def create
-    @plant_diary = PlantDiary.new(plant_diary_params)
+  @plant_diary = PlantDiary.new(plant_diary_params)
+  
+    if current_user.nil?
+      Rails.logger.debug("current_user is nil")
+      flash[:alert] = 'ユーザーがログインしていません。'
+      redirect_to new_user_session_path and return
+    else
+      Rails.logger.debug("current_user is present: #{current_user.id}")
+    end
+    
+    @plant_diary.user_id = current_user.id
+    
     if @plant_diary.save
       flash[:notice] = '投稿に成功しました.'
       redirect_to @plant_diary
@@ -24,6 +35,7 @@ class Public::PlantDiariesController < ApplicationController
   end
 
   def edit
+    @plant_diary = PlantDiary.find(params[:id])
   end
 
   def update
@@ -37,6 +49,7 @@ class Public::PlantDiariesController < ApplicationController
   end
 
   def destroy
+    @plant_diary = PlantDiary.find(params[:id])
     @plant_diary.destroy
     flash[:notice] = '投稿が削除されました.'
     redirect_to plant_diaries_url
@@ -49,6 +62,6 @@ class Public::PlantDiariesController < ApplicationController
   end
 
   def plant_diary_params
-    params.require(:plant_diary).permit(:title, :content, :user_id)
+    params.require(:plant_diary).permit(:title, :content, :user_id, :image)
   end
 end

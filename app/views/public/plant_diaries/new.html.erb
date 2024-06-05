@@ -1,16 +1,30 @@
-<%= form_with(model: @plant_diary, local: true) do |form| %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+<%= form_with(model: @plant_diary, local: true, multipart: true) do |form| %>
+  <div class="container">
+    <div class="row">
+      <table class="form-new table table-borderless col-md-6">
+        <div class="field">
+          <tr class="form-group">
+            <th><%= form.label :title %></th>
+            <td><%= form.text_field :title %></td>
+          </tr>
+        </div>
+        <div class="field">
+          <tr class="form-group">
+            <th><%= form.label :content %></th>
+            <td><%= form.text_area :content %></td>
+          </tr>
+        </div>
+        
+        <div class="field">
+          <tr class="form-group">
+            <th><%= form.label :image %></th>
+            <td><%= form.file_field :image %></td>
+          </tr>
+        </div>
+      </table>
+    </div>
+    <div class="actions">
+      <%= form.submit '投稿する' %>
+    </div>
   </div>
 <% end %>
