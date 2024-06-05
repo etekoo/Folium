@@ -10,3 +10,22 @@ Admin.create!(
    email: 'admin@admin',
    password: 'password'
 )
+
+#ユーザー
+User.create!(
+  email: 'example@example.com',
+  password: 'password',
+  name: 'John Doe',
+  introduction: 'Hello, I am John Doe.',
+  is_active: true
+)
+
+User.create!(
+  email: 'test@test.com',
+  password: 'password',
+  name: 'Jane Smith',
+  introduction: 'Nice to meet you!',
+  is_active: true
+)
+
+puts 'データを追加しました。'

@@ -1,2 +1,28 @@
-<h1>Public::PlantDiaries#edit</h1>
-<p>Find me in app/views/public/plant_diaries/edit.html.erb</p>
+<%= form_with(model: @plant_diary, local: true) do |form| %>
+  <% if @plant_diary.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@plant_diary.errors.count, "error") %> prohibited this plant_diary from being saved:</h2>
+      <ul>
+        <% @plant_diary.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
