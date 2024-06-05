@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-  before_action :set_user, only: [:mypage, :edit, :update, :show]
+  before_action :set_user, only: [:mypage, :edit, :update]
   before_action :authenticate_user!, except: [:show] # ログインしているかどうかを確認
 
   def mypage
@@ -10,6 +10,8 @@ class Public::UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
+    @plant_diaries = @user.plant_diaries
   end
 
   def update
@@ -38,6 +40,6 @@ class Public::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :introduction, :password_confirmation)
   end
 end
