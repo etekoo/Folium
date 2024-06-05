@@ -1,2 +1,35 @@
-<h1>Public::PlantDiaries#index</h1>
-<p>Find me in app/views/public/plant_diaries/index.html.erb</p>
+<h1>Plant Diaries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Image</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @plant_diaries.each do |plant_diary| %>
+      <tr>
+        <td><%= plant_diary.title %></td>
+        
+        <td>
+            <% if plant_diary.image.attached? %>
+              <%= image_tag plant_diary.image, size: "100x100" %>
+            <% else %>
+              <%= image_tag 'no_image_available', size: "100x100" %>
+            <% end %>
+        </td>
+        
+        <td><%= link_to 'Show', plant_diary %></td>
+        <td><%= link_to 'Edit', edit_plant_diary_path(plant_diary) %></td>
+        <td><%= link_to 'Destroy', plant_diary, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '新規投稿', new_plant_diary_path %>

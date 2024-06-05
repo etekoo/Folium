@@ -13,9 +13,16 @@
   <body class="d-flex flex-column vh-100">
     <!--ヘッダー部分テンプレート-->
     <%= render 'layouts/header' %>
+    
     <main class="mb-auto">
+      <!--フラッシュメッセージ-->
+    <div class="text-center">
+      <%= render 'layouts/flash' %>
+    </div>  
+    
     <%= yield %>
     </main>
+    
   </body>
     <!--フッター部分テンプレート-->
  <%= render 'layouts/footer' %>

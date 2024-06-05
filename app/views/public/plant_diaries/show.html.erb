@@ -1,2 +1,13 @@
-<h1>Public::PlantDiaries#show</h1>
-<p>Find me in app/views/public/plant_diaries/show.html.erb</p>
+<p>
+  <strong>Title:</strong>
+  <%= @plant_diary.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @plant_diary.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_plant_diary_path(@plant_diary) %> |
+<%= link_to 'Back', plant_diaries_path %>

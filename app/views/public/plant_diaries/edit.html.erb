@@ -1,2 +1,17 @@
-<h1>Public::PlantDiaries#edit</h1>
-<p>Find me in app/views/public/plant_diaries/edit.html.erb</p>
+<%= form_with(model: @plant_diary, local: true) do |form| %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit '更新する' %>
+  </div>
+<% end %>
