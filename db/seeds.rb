@@ -12,7 +12,7 @@ Admin.create!(
 )
 
 #ユーザー
-User.create!(
+user = User.create!(
   email: 'example@example.com',
   password: 'password',
   name: 'John Doe',
@@ -20,13 +20,19 @@ User.create!(
   is_active: true
 )
 
-User.create!(
+user = User.create!(
   email: 'test@test.com',
   password: 'password',
   name: 'Jane Smith',
   introduction: 'Nice to meet you!',
   is_active: true
 )
+
+user.image.attach(
+  io: File.open(Rails.root.join('app', 'assets', 'images', 'Jane_Smith.jpg')), 
+  filename: 'Jane_Smith.jpg'
+)
+
 
 #育成記録サンプル
 cactus_diary = PlantDiary.create!(
@@ -46,7 +52,7 @@ ficus_diary = PlantDiary.create!(
 ficus_diary.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'ficus.jpg')), filename: 'ficus.jpg')
 
 schefflera_diary = PlantDiary.create!(
-  user_id: 1,
+  user_id: 2,
   title: "シェフレラの生育記録",
   content: "シェフレラの育成についての詳細なメモです。新しい葉が出るサイクルや土の交換時期などを記録しています。"
 )

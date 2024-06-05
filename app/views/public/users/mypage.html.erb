@@ -16,7 +16,7 @@
 
 
       　   <% if current_user && current_user.id == @user.id %>
-          <%= link_to '編集', edit_user_registration_path, class: 'btn btn-primary' %>
+          <%= link_to '編集', edit_user_path(@user), class: 'btn btn-primary' %>
           <% end %>
       </div>
 
@@ -24,13 +24,13 @@
 
       <!--投稿一覧-->
       <h2 class="text-center">投稿一覧</h2>
-      
+
       <table class="table table-striped">
         <thead>
           <tr>
             <th>画像</th>
             <th>タイトル</th>
-            <th></th> 
+            <th></th>
           </tr>
         </thead>
         <tbody>
