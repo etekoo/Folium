@@ -1,13 +1,31 @@
-<p>
-  <strong>Title:</strong>
-  <%= @plant_diary.title %>
-</p>
+<div class="container">
+  <div class="row pt-5 justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h2><%= @plant_diary.title %></h2>
+        </div>
+        <div class="card-body">
+          <p><strong>Content:</strong></p>
+          <p><%= @plant_diary.content %></p>
 
-<p>
-  <strong>Content:</strong>
-  <%= @plant_diary.content %>
-</p>
+          <hr>
 
+          <div class="d-flex align-items-center">
+            <%= image_tag(@plant_diary.user.get_profile_image, class: "rounded-circle", width: "50", height: "50") %>
+            <div class="ml-3">
+              <p><strong>Posted by:</strong> <%= link_to @plant_diary.user.name, user_path(@plant_diary.user) %></p>
+            </div>
+          </div>
 
-<%= link_to 'Edit', edit_plant_diary_path(@plant_diary) %> |
-<%= link_to 'Back', plant_diaries_path %>
+          <hr>
+
+          <% if current_user && current_user.id == @plant_diary.user.id %>
+            <%= link_to 'Edit', edit_plant_diary_path(@plant_diary), class: 'btn btn-primary' %>
+          <% end %>
+          <%= link_to 'Back', plant_diaries_path, class: 'btn btn-secondary' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
