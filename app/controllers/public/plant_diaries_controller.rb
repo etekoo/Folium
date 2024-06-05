@@ -15,8 +15,10 @@ class Public::PlantDiariesController < ApplicationController
   def create
     @plant_diary = PlantDiary.new(plant_diary_params)
     if @plant_diary.save
-      redirect_to @plant_diary, notice: 'Plant diary was successfully created.'
+      flash[:notice] = 'Plant diary was successfully created.'
+      redirect_to @plant_diary
     else
+      flash[:alert] = @plant_diary.errors.full_messages.join(", ")
       render :new
     end
   end
@@ -26,15 +28,18 @@ class Public::PlantDiariesController < ApplicationController
 
   def update
     if @plant_diary.update(plant_diary_params)
-      redirect_to @plant_diary, notice: 'Plant diary was successfully updated.'
+      flash[:notice] = 'Plant diary was successfully updated.'
+      redirect_to @plant_diary
     else
+      flash[:alert] = @plant_diary.errors.full_messages.join(", ")
       render :edit
     end
   end
 
   def destroy
     @plant_diary.destroy
-    redirect_to plant_diaries_url, notice: 'Plant diary was successfully destroyed.'
+    flash[:notice] = 'Plant diary was successfully destroyed.'
+    redirect_to plant_diaries_url
   end
 
   private

@@ -2,8 +2,15 @@
   <div class="alert alert-success text-center mx-auto mt-2" style="width: 70%;">
     <%= flash[:notice] %><button type="button" class="close" data-dismiss="alert">&times;</button>
   </div>
-<% elsif flash[:alert] %>
+<% end %>
+
+<% if flash[:alert] %>
   <div class="alert alert-danger text-center mx-auto mt-2" style="width: 70%;">
-    <%= flash[:alert] %><button type="button" class="close" data-dismiss="alert">&times;</button>
+    <ul>
+      <% flash[:alert].split(", ").each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
   </div>
 <% end %>
