@@ -15,7 +15,7 @@ class Public::PlantDiariesController < ApplicationController
   def create
     @plant_diary = PlantDiary.new(plant_diary_params)
     if @plant_diary.save
-      flash[:notice] = 'Plant diary was successfully created.'
+      flash[:notice] = '投稿に成功しました.'
       redirect_to @plant_diary
     else
       flash[:alert] = @plant_diary.errors.full_messages.join(", ")
@@ -28,7 +28,7 @@ class Public::PlantDiariesController < ApplicationController
 
   def update
     if @plant_diary.update(plant_diary_params)
-      flash[:notice] = 'Plant diary was successfully updated.'
+      flash[:notice] = '更新に成功しました.'
       redirect_to @plant_diary
     else
       flash[:alert] = @plant_diary.errors.full_messages.join(", ")
@@ -38,7 +38,7 @@ class Public::PlantDiariesController < ApplicationController
 
   def destroy
     @plant_diary.destroy
-    flash[:notice] = 'Plant diary was successfully destroyed.'
+    flash[:notice] = '投稿が削除されました.'
     redirect_to plant_diaries_url
   end
 
