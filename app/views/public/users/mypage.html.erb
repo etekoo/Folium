@@ -1,2 +1,61 @@
-<h1>Public::Users#mypage</h1>
-<p>Find me in app/views/public/users/mypage.html.erb</p>
+<div class="container">
+  <h1 class="text-center">マイページ</h1>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <!--ユーザー情報-->
+      <div class="user-info">
+        <div style="width: 100px; height: 100px;">
+          <%= image_tag @user.get_profile_image, class: "img-fluid rounded-circle" %>
+        </div>
+
+        <p>ユーザー名: <%= @user.name %></p>
+        <p>メールアドレス: <%= @user.email %></p>
+        <p>自己紹介: <%= @user.introduction %></p>
+
+
+      　   <% if current_user && current_user.id == @user.id %>
+          <%= link_to '編集', edit_user_registration_path, class: 'btn btn-primary' %>
+          <% end %>
+      </div>
+
+
+
+      <!--投稿一覧-->
+      <h2 class="text-center">投稿一覧</h2>
+      
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>画像</th>
+            <th>タイトル</th>
+            <th></th> 
+          </tr>
+        </thead>
+        <tbody>
+          <% @plant_diaries.each_with_index do |plant_diary, index| %>
+            <tr class="<%= index.even? ? 'bg-light' : 'bg-white' %>">
+              <td>
+                <% if plant_diary.image.attached? %>
+                  <%= image_tag plant_diary.image, class: "img-thumbnail", style: "max-width: 100px; max-height: 100px;" %>
+                <% else %>
+                  <%= image_tag 'diary_no_image', size: "100x100", class: "img-thumbnail" %>
+                <% end %>
+              </td>
+              <td><%= link_to plant_diary.title, plant_diary %></td>
+              <td>
+                <% if current_user && current_user.id == plant_diary.user_id %>
+                  <%= link_to '編集', edit_plant_diary_path(plant_diary), class: 'btn btn-primary' %>
+                  <%= link_to '削除', plant_diary, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+</div>
