@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  
+  devise_scope :user do
+    post "users/guest_sign_in", to: "public/sessions#guest_sign_in" # POSTリクエストに修正
+  end
+  
   # 顧客用
   devise_for :users, skip: [:passwords], controllers: {
     registrations: "public/registrations",
@@ -9,7 +14,7 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
-
+  
   root 'public/homes#top'                                     # TOPページ
 
  
@@ -23,7 +28,7 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :edit, :update] do
       get 'mypage', on: :collection
       get 'unsubscribe', on: :member
-      delete 'withdraw', on: :member
+      patch 'withdraw', on: :member
     end
   end
 
