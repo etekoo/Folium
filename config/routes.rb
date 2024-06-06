@@ -15,8 +15,6 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
   
-
-  
   root 'public/homes#top'                                     # TOPページ
 
  
