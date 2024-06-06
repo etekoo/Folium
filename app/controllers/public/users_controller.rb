@@ -30,7 +30,7 @@ class Public::UsersController < ApplicationController
   end
 
   def unsubscribe
-    # 退会処理など
+    @user = User.find(params[:id])
   end
 
   def withdraw

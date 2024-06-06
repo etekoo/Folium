@@ -22,7 +22,7 @@ class User < ApplicationRecord
 
   # ユーザー退会時の機能制限
   def active_for_authentication?
-    super && (is_deleted == false)
+    super && (is_active == true)
   end
   
   # ゲストログイン機能
