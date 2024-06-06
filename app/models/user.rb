@@ -9,7 +9,9 @@ class User < ApplicationRecord
   validates :introduction, length: { maximum: 50 }
   
   has_one_attached :image
+  has_many :plant_diaries, dependent: :destroy
   
+  # 画像適用
   def get_profile_image
     if image.attached?
       image.variant(resize: "300x300>").processed
@@ -17,6 +19,21 @@ class User < ApplicationRecord
       'user_no_image.png'
     end
   end
+
+  # ユーザー退会時の機能制限
+  def active_for_authentication?
+    super && (is_deleted == false)
+  end
   
-  has_many :plant_diaries, dependent: :destroy
+  # ゲストログイン機能
+  GUEST_USER_EMAIL = "guest@example.com"
+
+  def self.guest
+    find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "guestuser"
+    end
+  end
+  
+  
 end
