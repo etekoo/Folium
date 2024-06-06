@@ -29,7 +29,7 @@ user = User.find_or_create!(
 )
 
 user.image.attach(
-  io: File.open(Rails.root.join('app', 'assets', 'images', 'Jane_Smith.jpg')),
+  io: File.open(Rails.root.join('app','public', 'packs', 'images', 'Jane_Smith.jpg')),
   filename: 'Jane_Smith.jpg'
 )
 
@@ -41,7 +41,7 @@ cactus_diary = PlantDiary.find_or_create!(
   content: "サボテンの成長過程を記録しています。日光の当て方や水やりの頻度、土の乾き具合などをメモしています。"
 )
 
-cactus_diary.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'cactus.jpg')), filename: 'cactus.jpg')
+cactus_diary.image.attach(io: File.open(Rails.root.join('public', 'packs', 'development', 'images', 'cactus.jpg')), filename: 'cactus.jpg')
 
 ficus_diary = PlantDiary.find_or_create!(
   user_id: 1,
@@ -49,7 +49,7 @@ ficus_diary = PlantDiary.find_or_create!(
   content: "フィカスの葉の色や状態の変化を定期的に記録しています。光の当たり方や水やりのタイミングなども一緒にメモしています。"
 )
 
-ficus_diary.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'ficus.jpg')), filename: 'ficus.jpg')
+ficus_diary.image.attach(io: File.open(Rails.root.join('public', 'packs', 'development', 'images', 'ficus.jpg')), filename: 'ficus.jpg')
 
 schefflera_diary = PlantDiary.find_or_create!(
   user_id: 2,
@@ -57,7 +57,7 @@ schefflera_diary = PlantDiary.find_or_create!(
   content: "シェフレラの育成についての詳細なメモです。新しい葉が出るサイクルや土の交換時期などを記録しています。"
 )
 
-schefflera_diary.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'schefflera.jpg')), filename: 'schefflera.jpg')
+schefflera_diary.image.attach(io: File.open(Rails.root.join('public', 'packs', 'development', 'images', 'schefflera.jpg')), filename: 'schefflera.jpg')
 
 green_bean_diary = PlantDiary.find_or_create!(
   user_id: 1,
