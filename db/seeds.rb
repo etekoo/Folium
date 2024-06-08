@@ -65,4 +65,40 @@ green_bean_diary = PlantDiary.create!(
   content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
 )
 
+green_bean_diary = PlantDiary.create!(
+  user_id: 1,
+  title: "グリーンビーンの成長記録",
+  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
+)
+green_bean_diary = PlantDiary.create!(
+  user_id: 1,
+  title: "グリーンビーンの成長記録",
+  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
+)
+green_bean_diary = PlantDiary.create!(
+  user_id: 1,
+  title: "グリーンビーンの成長記録",
+  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
+)
+green_bean_diary = PlantDiary.create!(
+  user_id: 1,
+  title: "グリーンビーンの成長記録",
+  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
+)
+green_bean_diary = PlantDiary.create!(
+  user_id: 1,
+  title: "グリーンビーンの成長記録",
+  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
+)
+green_bean_diary = PlantDiary.create!(
+  user_id: 1,
+  title: "グリーンビーンの成長記録",
+  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
+)
+green_bean_diary = PlantDiary.create!(
+  user_id: 1,
+  title: "グリーンビーンの成長記録",
+  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
+)
+
 puts '初期データを追加しました。'
