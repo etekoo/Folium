@@ -4,6 +4,7 @@ class PlantDiary < ApplicationRecord
 
   belongs_to :user
   has_one_attached :image
+  has_many :comments, dependent: :destroy
   
   def get_diary_image
     if image.attached?

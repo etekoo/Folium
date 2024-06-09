@@ -17,6 +17,30 @@
               <p><strong>Posted by:</strong> <%= link_to @plant_diary.user.name, user_path(@plant_diary.user) %></p>
             </div>
           </div>
+          
+          <h2>コメント</h2>
+            <% @plant_diary.comments.each do |comment| %>
+            <p>
+              <strong><%= comment.user.name %>:</strong>
+              <%= comment.content %>
+              <% if comment.user == current_user %>
+              <%= link_to '削除', plant_diary_comment_path(@plant_diary, comment), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+              <% end %>
+            </p>
+            <% end %>
+            
+            <h3>新しいコメントを追加</h3>
+            <%= form_with(model: [@plant_diary, @plant_diary.comments.build], local: true) do |form| %>
+            
+            <div>
+              <%= form.label :content %>
+              <%= form.text_area :content %>
+            </div>
+            
+            <div>
+              <%= form.submit 'コメントを投稿' %>
+            </div>
+          <% end %>
 
           <hr>
 

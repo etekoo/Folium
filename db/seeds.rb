@@ -5,98 +5,76 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-#管理者
-Admin.find_or_create!(
-   email: 'admin@admin',
-   password: 'password'
-)
 
-#ユーザー
-user = User.find_or_create!(
-  email: 'example@example.com',
-  password: 'password',
-  name: 'John Doe',
-  introduction: 'Hello, I am John Doe.',
-  is_active: true
-)
+# 管理者
+Admin.find_or_create_by!(email: ENV['ADMIN_EMAIL']) do |admin|
+  admin.password = ENV['ADMIN_PASSWORD']
+end
 
-user = User.find_or_create!(
-  email: 'test@test.com',
-  password: 'password',
-  name: 'Jane Smith',
-  introduction: 'Nice to meet you!',
-  is_active: true
-)
+# ユーザー
+user1 = User.find_or_create_by!(email: 'example@example.com') do |user|
+  user.password = 'password'
+  user.name = 'John Doe'
+  user.introduction = 'Hello, I am John Doe.'
+  user.is_active = true
+end
 
-user.image.attach(
-  io: File.open(Rails.root.join('app', 'assets', 'images', 'Jane_Smith.jpg')),
-  filename: 'Jane_Smith.jpg'
-)
+user2 = User.find_or_create_by!(email: 'test@test.com') do |user|
+  user.password = 'password'
+  user.name = 'Jane Smith'
+  user.introduction = 'Nice to meet you!'
+  user.is_active = true
+end
 
+# 添付ファイルの確認と添付
+if File.exist?(Rails.root.join('app', 'assets', 'images', 'Jane_Smith.jpg'))
+  user2.image.attach(
+    io: File.open(Rails.root.join('app', 'assets', 'images', 'Jane_Smith.jpg')),
+    filename: 'Jane_Smith.jpg'
+  )
+else
+  puts "Warning: Jane_Smith.jpg not found. Skipping image attachment for user2."
+end
 
-#育成記録サンプル
-cactus_diary = PlantDiary.find_or_create!(
-  user_id: 1,
+# 育成記録サンプル
+cactus_diary = PlantDiary.find_or_create_by!(
+  user: user1,
   title: "サボテンの成長記録",
   content: "サボテンの成長過程を記録しています。日光の当て方や水やりの頻度、土の乾き具合などをメモしています。"
 )
 
-cactus_diary.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'cactus.jpg')), filename: 'cactus.jpg')
+if File.exist?(Rails.root.join('app', 'assets', 'images', 'cactus.jpg'))
+  cactus_diary.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'cactus.jpg')), filename: 'cactus.jpg')
+else
+  puts "Warning: cactus.jpg not found. Skipping image attachment for cactus_diary."
+end
 
-ficus_diary = PlantDiary.find_or_create!(
-  user_id: 1,
+ficus_diary = PlantDiary.find_or_create_by!(
+  user: user1,
   title: "フィカス(ゴムの木)の日々の変化",
   content: "フィカスの葉の色や状態の変化を定期的に記録しています。光の当たり方や水やりのタイミングなども一緒にメモしています。"
 )
 
-ficus_diary.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'ficus.jpg')), filename: 'ficus.jpg')
+if File.exist?(Rails.root.join('app', 'assets', 'images', 'ficus.jpg'))
+  ficus_diary.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'ficus.jpg')), filename: 'ficus.jpg')
+else
+  puts "Warning: ficus.jpg not found. Skipping image attachment for ficus_diary."
+end
 
-schefflera_diary = PlantDiary.find_or_create!(
-  user_id: 2,
+schefflera_diary = PlantDiary.find_or_create_by!(
+  user: user2,
   title: "シェフレラの生育記録",
   content: "シェフレラの育成についての詳細なメモです。新しい葉が出るサイクルや土の交換時期などを記録しています。"
 )
 
-schefflera_diary.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'schefflera.jpg')), filename: 'schefflera.jpg')
+if File.exist?(Rails.root.join('app', 'assets', 'images', 'schefflera.jpg'))
+  schefflera_diary.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'schefflera.jpg')), filename: 'schefflera.jpg')
+else
+  puts "Warning: schefflera.jpg not found. Skipping image attachment for schefflera_diary."
+end
 
-green_bean_diary = PlantDiary.find_or_create!(
-  user_id: 1,
-  title: "グリーンビーンの成長記録",
-  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
-)
-
-green_bean_diary = PlantDiary.create!(
-  user_id: 1,
-  title: "グリーンビーンの成長記録",
-  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
-)
-green_bean_diary = PlantDiary.create!(
-  user_id: 1,
-  title: "グリーンビーンの成長記録",
-  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
-)
-green_bean_diary = PlantDiary.create!(
-  user_id: 1,
-  title: "グリーンビーンの成長記録",
-  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
-)
-green_bean_diary = PlantDiary.create!(
-  user_id: 1,
-  title: "グリーンビーンの成長記録",
-  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
-)
-green_bean_diary = PlantDiary.create!(
-  user_id: 1,
-  title: "グリーンビーンの成長記録",
-  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
-)
-green_bean_diary = PlantDiary.create!(
-  user_id: 1,
-  title: "グリーンビーンの成長記録",
-  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
-)
-green_bean_diary = PlantDiary.create!(
-  user_id: 1,
+PlantDiary.find_or_create_by!(
+  user: user1,
   title: "グリーンビーンの成長記録",
   content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
 )
