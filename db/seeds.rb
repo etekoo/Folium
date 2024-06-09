@@ -80,6 +80,4 @@ green_bean_diary = PlantDiary.find_or_create_by!(
 )
 
 
-
-
 puts '初期データを追加しました。'
