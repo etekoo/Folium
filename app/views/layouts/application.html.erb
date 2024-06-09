@@ -7,22 +7,23 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= stylesheet_link_tag 'public/users', media: 'all' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body class="d-flex flex-column vh-100">
     <!--ヘッダー部分テンプレート-->
     <%= render 'layouts/header' %>
-    
+
     <main class="mb-auto">
     <!--フラッシュメッセージ-->
     <div class="text-center">
       <%= render 'layouts/flash' %>
-    </div>  
-    
+    </div>
+
     <%= yield %>
     </main>
-    
+
   </body>
     <!--フッター部分テンプレート-->
  <%= render 'layouts/footer' %>
