@@ -1,0 +1,20 @@
+<table>
+  <tbody>
+    <% plant_diary.comments.each do |comment| %>
+      <tr>
+        <td>
+          <%= link_to user_path(comment.user) do %>
+            <%= image_tag comment.user.get_profile_image, size: "100x100" %><br>
+            <%= comment.user.name %>
+          <% end %>
+        </td>
+        <td><%= comment.content %></td>
+        <td>
+          <% if comment.user == current_user %>
+            <%= link_to "Destroy", plant_diary_comment_path(plant_diary, comment), method: :delete, class: "btn btn-danger pull-right" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

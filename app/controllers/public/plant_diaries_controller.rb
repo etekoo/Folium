@@ -10,7 +10,7 @@ class Public::PlantDiariesController < ApplicationController
   end
 
   def show
-
+   @comment = Comment.new
   end
 
   def create
@@ -50,7 +50,6 @@ class Public::PlantDiariesController < ApplicationController
   end
 
   def destroy
-
     @plant_diary.destroy
     flash[:notice] = '投稿が削除されました.'
     redirect_to plant_diaries_url

@@ -18,8 +18,6 @@
             </div>
           </div>
           
-
-
           <hr>
 
           <% if current_user && current_user.id == @plant_diary.user.id %>
@@ -31,3 +29,6 @@
     </div>
   </div>
 </div>
+
+<%= render "public/comment/index", plant_diary: @plant_diary %>
+<%= render "public/comment/form", plant_diary: @plant_diary, comment: @comment %>
