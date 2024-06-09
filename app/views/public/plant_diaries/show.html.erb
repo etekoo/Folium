@@ -30,5 +30,9 @@
   </div>
 </div>
 
-<%= render "public/comment/index", plant_diary: @plant_diary %>
-<%= render "public/comment/form", plant_diary: @plant_diary, comment: @comment %>
+<div class="row justify-content-center">
+  <div class="col-4">
+    <%= render "public/comment/form", plant_diary: @plant_diary, comment: @comment %>
+    <%= render "public/comment/index", plant_diary: @plant_diary %>
+  </div>
+</div>
