@@ -5,12 +5,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  validates :name,presence: true, length: { minimum: 2, maximum: 20 }, uniqueness: true
-  validates :introduction, length: { maximum: 50 }
   
+  # validates :name,presence: true, length: { minimum: 2, maximum: 20 }, uniqueness: true
+  # validates :introduction, length: { maximum: 50 }
+
   has_one_attached :image
   has_many :plant_diaries, dependent: :destroy
-  
+  has_many :comments, dependent: :destroy
+
   # 画像適用
   def get_profile_image
     if image.attached?
@@ -24,7 +26,7 @@ class User < ApplicationRecord
   def active_for_authentication?
     super && (is_active == true)
   end
-  
+
   # ゲストログイン機能
   GUEST_USER_EMAIL = "guest@example.com"
 
@@ -34,6 +36,6 @@ class User < ApplicationRecord
       user.name = "guestuser"
     end
   end
-  
-  
+
+
 end
