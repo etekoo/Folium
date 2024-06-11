@@ -16,9 +16,11 @@ Rails.application.routes.draw do
   }
 
   root 'public/homes#top'                                     # TOPページ
+  
 
 
   scope module: :public do
+    get "search" => "searches#search"
     get 'homes/about'                                         # aboutページ
     resources :communities do
       resources :communitymembers, only: [:create, :destroy]  # コミュニティメンバー関連
@@ -36,6 +38,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    get "search" => "searches#search"
     resources :communities, only: [:index, :show, :destroy]   # 管理者用コミュニティ関連
     resources :plant_diaries, only: [:index, :show, :destroy] # 管理者用プラントダイアリー関連
     resources :users, only: [:index, :show, :edit, :update]   # 管理者用ユーザー関連

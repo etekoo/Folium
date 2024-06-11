@@ -1,12 +1,15 @@
 class Public::PlantDiariesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_plant_diary, only: [:show, :edit, :update, :destroy]
+  before_action :filter_activeUser, only: [:show]
+  before_action :confirm_owner, only: [:edit, :update, :destroy]
 
   def new
     @plant_diary = PlantDiary.new
   end
 
   def index
-    @plant_diaries = PlantDiary.all
+    @plant_diaries = PlantDiary.includes(:user).where(users: { is_active: true })
   end
 
   def show
@@ -59,6 +62,24 @@ class Public::PlantDiariesController < ApplicationController
 
   def set_plant_diary
     @plant_diary = PlantDiary.find(params[:id])
+  end
+
+  # 無効なユーザーの投稿を除外
+  def filter_activeUser
+    user = @plant_diary.user
+    if user.is_active?
+    else
+      flash[:alert] = "指定のユーザーは退会済みです"
+      redirect_to mypage_path
+    end
+  end
+
+    # ログインユーザーが投稿者かどうか確認
+  def confirm_owner
+    unless @plant_diary.user == current_user
+      flash[:alert] = "編集または削除する権限がありません"
+      redirect_to plant_diaries_path
+    end
   end
 
   def plant_diary_params

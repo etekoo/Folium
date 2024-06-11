@@ -1,8 +1,16 @@
 <div class="container">
-  <h1 class="text-center">Plant Diaries</h1>
 
-  <div class="row justify-content-center">
+  <div class="row pt-5 justify-content-center">
+
+
+    <div class="col-md-2 border">
+      <%= render 'public/plant_diaries/sidebar' %>
+    </div>
+
     <div class="col-md-8">
+
+      <h1 class="border-bottom">Plant Diaries</h1>
+
       <%= link_to '新規投稿', new_plant_diary_path, class: "btn btn-success mb-3" %>
 
       <table class="table table-striped">
