@@ -13,13 +13,13 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 #管理者
-Admin.find_or_create_by!(email: ENV['ADMIN_EMAIL']) do |admin|
+Admin.find_or_create_by!(email: ENV['ADMIN_EMAIL']) do |admin|q
   admin.password = ENV['ADMIN_PASSWORD']
 end
 
 # #ユーザー
 User.find_or_create_by!(email: "sample@example.com") do |user|
-  user.password = 'aaaaaaaa'
+  user.password = 'password'
   user.name = 'John Doe'
   user.introduction = 'Hello, I am John Doe.'
   user.is_active = true
@@ -34,6 +34,12 @@ smith = User.find_or_create_by!(email: 'test@example.com') do |user|
   user.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/Jane_Smith.jpg"), filename:"Jane_Smith.jpg")
 end
 
+User.find_or_create_by!(email: "example@example.com") do |user|
+  user.password = 'password'
+  user.name = 'John K'
+  user.introduction = 'Hello, I am John K.'
+  user.is_active = true
+end
 
 
 #育成記録サンプル
