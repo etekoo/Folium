@@ -55,7 +55,7 @@ class Public::PlantDiariesController < ApplicationController
   def destroy
     @plant_diary.destroy
     flash[:notice] = '投稿が削除されました.'
-    redirect_to plant_diaries_url
+    redirect_to mypage_users_path
   end
 
   private
@@ -76,7 +76,7 @@ class Public::PlantDiariesController < ApplicationController
 
     # ログインユーザーが投稿者かどうか確認
   def confirm_owner
-    unless @plant_diary.user == current_user
+    unless @plant_diary.user == current_user || params[:admin_delete].present?
       flash[:alert] = "編集または削除する権限がありません"
       redirect_to plant_diaries_path
     end

@@ -5,14 +5,16 @@
         <div class="card-header">
           <h2><%= @plant_diary.title %></h2>
         </div>
+        <div class="card-body"><%= image_tag @plant_diary.resize_diary_image(100, 100, 'fill'), class: "img-thumbnail" %>
+        </div>  
         <div class="card-body">
           <p><strong>Content:</strong></p>
           <p><%= @plant_diary.content %></p>
 
           <hr>
-
+           
           <div class="d-flex align-items-center">
-            <%= image_tag(@plant_diary.user.get_profile_image, class: "rounded-circle", width: "50", height: "50") %>
+            <%= image_tag(@plant_diary.user.resize_profile_image(100, 100, 'fill'), class: "rounded-circle", width: "50", height: "50") %>
             <div class="ml-3">
               <p><strong>Posted by:</strong> <%= link_to @plant_diary.user.name, user_path(@plant_diary.user) %></p>
             </div>

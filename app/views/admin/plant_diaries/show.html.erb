@@ -1,2 +1,47 @@
 <h1>Admin::PlantDiaries#show</h1>
 <p>Find me in app/views/admin/plant_diaries/show.html.erb</p>
+<div class="container">
+  <div class="row pt-5 justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h2><%= @plant_diary.title %></h2>
+        </div>
+        <div class="card-body">
+          <p><strong>Content:</strong></p>
+          <p><%= @plant_diary.content %></p>
+
+          <hr>
+
+          <div class="d-flex align-items-center">
+            <%= image_tag(@plant_diary.user.get_profile_image, class: "rounded-circle", width: "50", height: "50") %>
+            <div class="ml-3">
+              <p><strong>Posted by:</strong> <%= link_to @plant_diary.user.name, user_path(@plant_diary.user) %></p>
+            </div>
+          </div>
+
+          <hr>
+
+          <% if current_user && current_user.id == @plant_diary.user.id %>
+            <%= link_to 'Edit', edit_plant_diary_path(@plant_diary), class: 'btn btn-primary' %>
+          <% end %>
+          <%= link_to 'Back', request.referer.present? ? request.referer : admin_plant_diaries_path, class: 'btn btn-secondary' %>
+
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-7">
+            <%= render "public/comment/index", plant_diary: @plant_diary %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-md-3 border">
+    </div>
+
+  </div>
+</div>
+
+

@@ -13,12 +13,20 @@ class User < ApplicationRecord
   has_many :plant_diaries, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  # 画像適用
-  def get_profile_image
-    if image.attached?
-      image.variant(resize: "300x300>").processed
+  # 画像をリサイズして取得する
+  def resize_profile_image(width, height, mode)
+    unless image.attached?
+      file_path = Rails.root.join('app/assets/images/user_no_image.png')
+      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    end
+
+    if mode == 'fit'
+      image.variant(resize_to_fit: [width, height]).processed
+    elsif mode == 'fill'
+      image.variant(resize_to_fill: [width, height]).processed
+  # デフォルトのリサイズ方法を指定
     else
-      'user_no_image.png'
+      image.variant(resize_to_fill: [800, 800]).processed
     end
   end
 

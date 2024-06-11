@@ -26,11 +26,7 @@
           <% @plant_diaries.each do |plant_diary| %>
             <tr>
               <td>
-                <% if plant_diary.image.attached? %>
-                  <%= image_tag plant_diary.image, class: "img-thumbnail", style: "max-width: 100px; max-height: 100px;" %>
-                <% else %>
-                  <%= image_tag 'diary_no_image', size: "100x100", class: "img-thumbnail" %>
-                <% end %>
+               <%= image_tag plant_diary.resize_diary_image(100, 100, 'fill'), class: "img-thumbnail" %>
               </td>
 
               <td><%= plant_diary.title %></td>
