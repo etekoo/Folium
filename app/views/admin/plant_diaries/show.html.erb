@@ -14,7 +14,7 @@
           <hr>
 
           <div class="d-flex align-items-center">
-            <%= image_tag(@plant_diary.user.get_profile_image, class: "rounded-circle", width: "50", height: "50") %>
+           <%= image_tag @plant_diary.user.resize_profile_image(50, 50, 'fill'), class: "rounded-circle" %>
             <div class="ml-3">
               <p><strong>Posted by:</strong> <%= link_to @plant_diary.user.name, user_path(@plant_diary.user) %></p>
             </div>
@@ -31,7 +31,7 @@
 
         <div class="row justify-content-center">
           <div class="col-7">
-            <%= render "public/comment/index", plant_diary: @plant_diary %>
+            <%= render "admin/comment/index", plant_diary: @plant_diary %>
           </div>
         </div>
 

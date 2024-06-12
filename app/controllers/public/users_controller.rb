@@ -12,12 +12,10 @@ class Public::UsersController < ApplicationController
   end
 
   def show
-    if current_user == @user
-      redirect_to mypage_path
-    end
     begin
       @user = User.find(params[:id])
       @plant_diaries = @user.plant_diaries
+      redirect_to mypage_users_path if current_user == @user
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = '指定されたユーザーが見つかりません。'
       redirect_to root_path
@@ -29,6 +27,7 @@ class Public::UsersController < ApplicationController
       flash[:notice] = 'ユーザー情報が更新されました。'
       redirect_to mypage_users_path
     else
+      flash[:alert] = @user.errors.full_messages.join(", ")
       render :edit
     end
   end
@@ -67,7 +66,7 @@ class Public::UsersController < ApplicationController
 
   def ensure_guest_user
     @user = User.find(params[:id])
-    if @user.email == "guest@example.com"
+    if @user.guest_user?
       redirect_to user_path(current_user) , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
     end
   end

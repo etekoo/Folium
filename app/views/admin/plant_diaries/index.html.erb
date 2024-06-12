@@ -22,18 +22,15 @@
         </thead>
 
         <tbody>
-              <% @plant_diaries.each do |admnin_plant_diary| %>
+              <% @plant_diaries.each do |plant_diary| %>
                 <tr>
                   <td>
-                    <% if admnin_plant_diary.image.attached? %>
-                      <%= image_tag admnin_plant_diary.display_image_for_admin, class: "img-thumbnail", style: "max-height: 70px;" %>
-                    <% else %>
-                      <%= image_tag 'diary_no_image', size: "70x70", class: "img-thumbnail" %>
-                    <% end %>
+                      <%= image_tag plant_diary.resize_diary_image(100, 100, 'fill'), class: "img-thumbnail" %>
+                  </td>
 
-                    <td><%= admnin_plant_diary.title %></td>
-                    <td><%= link_to 'Show', admin_plant_diary_path(admnin_plant_diary), class: "btn btn-info btn-sm" %></td>
-                    <td><%= link_to 'Delete', admin_plant_diary_path(admnin_plant_diary), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
+                    <td><%= plant_diary.title %></td>
+                    <td><%= link_to 'Show', admin_plant_diary_path(plant_diary), class: "btn btn-info btn-sm" %></td>
+                    <td><%= link_to 'Delete', admin_plant_diary_path(plant_diary), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
 
                 </tr>
               <% end %>

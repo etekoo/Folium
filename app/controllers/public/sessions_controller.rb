@@ -20,8 +20,10 @@ class Public::SessionsController < Devise::SessionsController
 
   # protected
 
+  GUEST_USER_EMAIL = "guest@example.com"
+  
   def guest_sign_in
-    user = User.find_or_create_by!(email: 'guest@example.com') do |user|
+    user = User.find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
       user.password = SecureRandom.urlsafe_base64
       user.name = "ゲストユーザー"
       # 他の必要な属性を設定

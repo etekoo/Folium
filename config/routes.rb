@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   devise_scope :user do
     post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in' # POSTリクエストに修正
   end
@@ -39,8 +40,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'search' => 'searches#search'
-    resources :communities, only: [:index, :show, :destroy]   # 管理者用コミュニティ関連
-    resources :plant_diaries, only: [:index, :show, :destroy] # 管理者用プラントダイアリー関連
+    resources :communities, only: [:index, :show, :destroy]   # 管理者用コミュニティ関連ra
+    resources :plant_diaries, only: [:index, :show, :destroy] do 
+     resources :comments, only: [:destroy]
+    end
+    
     resources :users, only: [:index, :show, :edit, :update]   # 管理者用ユーザー関連
   end
 end
