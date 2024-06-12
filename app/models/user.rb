@@ -36,6 +36,10 @@ class User < ApplicationRecord
   end
 
   # ゲストログイン機能
+  def guest_user?
+    email == 'guest@example.com'
+  end
+  
   GUEST_USER_EMAIL = "guest@example.com"
 
   def self.guest
