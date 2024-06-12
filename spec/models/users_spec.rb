@@ -1,4 +1,5 @@
 # spec/models/user_spec.rb
+#binding.pry
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -49,9 +50,10 @@ RSpec.describe User, type: :model do
     end
 
     it '画像がリサイズされること' do
+      user = create(:user)
       user.image.attach(io: File.open(Rails.root.join('spec/fixtures/files/test_image.jpg')), filename: 'test_image.jpg', content_type: 'image/jpeg')
-      variant = user.resize_profile_image(100, 100, 'fit')
-      expect(variant).to be_a(ActiveStorage::Variant)
+      variant_with_record = user.resize_profile_image(100, 100, 'fit')
+      expect(variant_with_record).to be_a(ActiveStorage::VariantWithRecord)
     end
 
     it '退会したユーザーがログインできないこと' do

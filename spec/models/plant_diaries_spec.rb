@@ -24,9 +24,10 @@ RSpec.describe PlantDiary, type: :model do
 
   describe 'メソッドのテスト' do
     it '画像がリサイズされること' do
+      plant_diary = create(:plant_diary)
       plant_diary.image.attach(io: File.open(Rails.root.join('spec/fixtures/files/test_image.jpg')), filename: 'test_image.jpg', content_type: 'image/jpeg')
-      variant = plant_diary.resize_diary_image(100, 100, 'fit')
-      expect(variant).to be_a(ActiveStorage::Variant)
+      variant_with_record = plant_diary.resize_diary_image(100, 100, 'fit')
+      expect(variant_with_record).to be_a(ActiveStorage::VariantWithRecord)
     end
 
     it '検索が正しく機能すること' do
