@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   devise_scope :user do
     post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in' # POSTリクエストに修正
   end
@@ -18,8 +17,6 @@ Rails.application.routes.draw do
 
   root 'public/homes#top'                                     # TOPページ
   
-
-
   scope module: :public do
     get 'search' => 'searches#search'
     get 'homes/about'                                         # aboutページ
