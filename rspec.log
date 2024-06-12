@@ -1,0 +1,189 @@
+
+Admin::UsersController
+  GET #index
+[32m    ユーザー一覧を表示すること[0m
+[32m    indexテンプレートを表示すること[0m
+[32m    ユーザーを割り当てること[0m
+  GET #show
+[32m    ユーザーを表示すること[0m
+[32m    showテンプレートを表示すること[0m
+[32m    @userを割り当てること[0m
+[31m    ユーザーが見つからない場合、ルートパスにリダイレクトすること (FAILED - 1)[0m
+  GET #edit
+[32m    ユーザーを編集すること[0m
+[32m    editテンプレートを表示すること[0m
+[32m    @userを割り当てること[0m
+  PATCH #update
+    有効な属性で更新する場合
+[31m      ユーザーを更新すること (FAILED - 2)[0m
+[31m      マイページにリダイレクトすること (FAILED - 3)[0m
+    無効な属性で更新する場合
+[32m      ユーザーを更新しないこと[0m
+[31m      editテンプレートを表示すること (FAILED - 4)[0m
+  POST #withdraw
+[31m    ユーザーを無効化すること (FAILED - 5)[0m
+[31m    セッションをリセットすること (FAILED - 6)[0m
+[31m    ルートパスにリダイレクトすること (FAILED - 7)[0m
+
+Public::PlantDiariesController
+  GET #new
+[32m    新規投稿ページにアクセスできること[0m
+[32m    新規投稿ページが表示されること[0m
+  GET #index
+[32m    一覧ページにアクセスできること[0m
+  GET #show
+[32m    詳細ページにアクセスできること[0m
+[32m    詳細ページが表示されること[0m
+  POST #create
+    正しい属性値が与えられた場合
+[32m      新しい植物日記が作成されること[0m
+[32m      植物日記のページにリダイレクトされること[0m
+    不正な属性値が与えられた場合
+[32m      新しい植物日記が作成されないこと[0m
+[32m      新規投稿ページが表示されること[0m
+  PATCH #update
+    正しい属性値が与えられた場合
+[32m      植物日記が更新されること[0m
+[32m      植物日記のページにリダイレクトされること[0m
+    不正な属性値が与えられた場合
+[32m      植物日記が更新されないこと[0m
+[32m      編集ページが表示されること[0m
+  DELETE #destroy
+[32m    植物日記が削除されること[0m
+[32m    マイページにリダイレクトされること[0m
+
+Public::UsersController
+  GET #mypage
+[32m    マイページにアクセスできること[0m
+[32m    マイページが表示されること[0m
+  GET #edit
+[32m    編集ページにアクセスできること[0m
+[32m    編集ページが表示されること[0m
+  PATCH #update
+    正しい属性値が与えられた場合
+[32m      ユーザー情報が更新されること[0m
+[32m      マイページにリダイレクトされること[0m
+    不正な属性値が与えられた場合
+[32m      ユーザー情報が更新されないこと[0m
+[32m      編集ページが表示されること[0m
+  POST #withdraw
+[32m    ユーザーが非アクティブ化されること[0m
+[32m    セッションがリセットされること[0m
+[32m    ルートパスにリダイレクトされること[0m
+  GET #show
+[32m    ユーザーの詳細ページにアクセスできること[0m
+[32m    ユーザーの詳細ページが表示されること[0m
+
+PlantDiary
+  バリデーションのテスト
+[32m    タイトルと内容があれば有効であること[0m
+[32m    タイトルがないと無効であること[0m
+[32m    内容がないと無効であること[0m
+  メソッドのテスト
+[32m    画像がリサイズされること[0m
+[32m    検索が正しく機能すること[0m
+
+User
+  バリデーションのテスト
+[32m    名前、メール、パスワードがあれば有効であること[0m
+[32m    名前がないと無効であること[0m
+[32m    名前が2文字未満では無効であること[0m
+[32m    名前が20文字を超えると無効であること[0m
+[32m    自己紹介が50文字を超えると無効であること[0m
+[32m    メールが重複していると無効であること[0m
+  メソッドのテスト
+[32m    ゲストユーザーを作成できること[0m
+[32m    画像がリサイズされること[0m
+[32m    退会したユーザーがログインできないこと[0m
+
+Failures:
+
+  1) Admin::UsersController GET #show ユーザーが見つからない場合、ルートパスにリダイレクトすること
+     [31mFailure/Error: [0muser = [1;34;4mUser[0m.find(params[[33m:id[0m])[0m
+     [31m[0m
+     [31mActiveRecord::RecordNotFound:[0m
+     [31m  Couldn't find User with 'id'=nonexistent-id[0m
+     [36m# ./app/controllers/admin/users_controller.rb:47:in `active_only'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/actiontext-6.1.7.7/lib/action_text/rendering.rb:20:in `with_renderer'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/actiontext-6.1.7.7/lib/action_text/engine.rb:59:in `block (4 levels) in <class:Engine>'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/rails-controller-testing-1.0.5/lib/rails/controller/testing/template_assertions.rb:62:in `process'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:35:in `block in process'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:104:in `catch'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:104:in `_catch_warden'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:35:in `process'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/rails-controller-testing-1.0.5/lib/rails/controller/testing/integration.rb:16:in `block (2 levels) in <module:Integration>'[0m
+     [36m# ./spec/controllers/admin/users_controller_spec.rb:48:in `block (3 levels) in <top (required)>'[0m
+
+  2) Admin::UsersController PATCH #update 有効な属性で更新する場合 ユーザーを更新すること
+     [31mFailure/Error: [0m[32mexpect[0m(user.name).to eq([31m[1;31m'[0m[31mUpdated Name[1;31m'[0m[31m[0m)[0m
+     [31m[0m
+     [31m  expected: "Updated Name"[0m
+     [31m       got: "The Hon. Winford Yun"[0m
+     [31m[0m
+     [31m  (compared using ==)[0m
+     [36m# ./spec/controllers/admin/users_controller_spec.rb:80:in `block (4 levels) in <top (required)>'[0m
+
+  3) Admin::UsersController PATCH #update 有効な属性で更新する場合 マイページにリダイレクトすること
+     [31mFailure/Error: [0m[32mexpect[0m(response).to redirect_to(mypage_users_path)[0m
+     [31m[0m
+     [31m  Expected response to be a <3XX: redirect>, but was a <204: No Content>[0m
+     [31m  Response body: [0m
+     [36m# ./spec/controllers/admin/users_controller_spec.rb:85:in `block (4 levels) in <top (required)>'[0m
+
+  4) Admin::UsersController PATCH #update 無効な属性で更新する場合 editテンプレートを表示すること
+     [31mFailure/Error: [0m[32mexpect[0m(response).to render_template([33m:edit[0m)[0m
+     [31m  expecting <"edit"> but rendering with <[]>[0m
+     [36m# ./spec/controllers/admin/users_controller_spec.rb:98:in `block (4 levels) in <top (required)>'[0m
+
+  5) Admin::UsersController POST #withdraw ユーザーを無効化すること
+     [31mFailure/Error: [0mpost [33m:withdraw[0m, [35mparams[0m: { [35mid[0m: user.id }[0m
+     [31m[0m
+     [31mActionController::UrlGenerationError:[0m
+     [31m  No route matches {:action=>"withdraw", :controller=>"admin/users", :id=>1}[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/rails-controller-testing-1.0.5/lib/rails/controller/testing/template_assertions.rb:62:in `process'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:35:in `block in process'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:104:in `catch'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:104:in `_catch_warden'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:35:in `process'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/rails-controller-testing-1.0.5/lib/rails/controller/testing/integration.rb:16:in `block (2 levels) in <module:Integration>'[0m
+     [36m# ./spec/controllers/admin/users_controller_spec.rb:107:in `block (3 levels) in <top (required)>'[0m
+
+  6) Admin::UsersController POST #withdraw セッションをリセットすること
+     [31mFailure/Error: [0mpost [33m:withdraw[0m, [35mparams[0m: { [35mid[0m: user.id }[0m
+     [31m[0m
+     [31mActionController::UrlGenerationError:[0m
+     [31m  No route matches {:action=>"withdraw", :controller=>"admin/users", :id=>1}[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/rails-controller-testing-1.0.5/lib/rails/controller/testing/template_assertions.rb:62:in `process'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:35:in `block in process'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:104:in `catch'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:104:in `_catch_warden'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:35:in `process'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/rails-controller-testing-1.0.5/lib/rails/controller/testing/integration.rb:16:in `block (2 levels) in <module:Integration>'[0m
+     [36m# ./spec/controllers/admin/users_controller_spec.rb:114:in `block (3 levels) in <top (required)>'[0m
+
+  7) Admin::UsersController POST #withdraw ルートパスにリダイレクトすること
+     [31mFailure/Error: [0mpost [33m:withdraw[0m, [35mparams[0m: { [35mid[0m: user.id }[0m
+     [31m[0m
+     [31mActionController::UrlGenerationError:[0m
+     [31m  No route matches {:action=>"withdraw", :controller=>"admin/users", :id=>1}[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/rails-controller-testing-1.0.5/lib/rails/controller/testing/template_assertions.rb:62:in `process'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:35:in `block in process'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:104:in `catch'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:104:in `_catch_warden'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/devise-4.9.4/lib/devise/test/controller_helpers.rb:35:in `process'[0m
+     [36m# /home/ec2-user/.rvm/gems/ruby-3.1.2/gems/rails-controller-testing-1.0.5/lib/rails/controller/testing/integration.rb:16:in `block (2 levels) in <module:Integration>'[0m
+     [36m# ./spec/controllers/admin/users_controller_spec.rb:118:in `block (3 levels) in <top (required)>'[0m
+
+Finished in 3.09 seconds (files took 3.49 seconds to load)
+[31m59 examples, 7 failures[0m
+
+Failed examples:
+
+[31mrspec ./spec/controllers/admin/users_controller_spec.rb:47[0m [36m# Admin::UsersController GET #show ユーザーが見つからない場合、ルートパスにリダイレクトすること[0m
+[31mrspec ./spec/controllers/admin/users_controller_spec.rb:77[0m [36m# Admin::UsersController PATCH #update 有効な属性で更新する場合 ユーザーを更新すること[0m
+[31mrspec ./spec/controllers/admin/users_controller_spec.rb:83[0m [36m# Admin::UsersController PATCH #update 有効な属性で更新する場合 マイページにリダイレクトすること[0m
+[31mrspec ./spec/controllers/admin/users_controller_spec.rb:96[0m [36m# Admin::UsersController PATCH #update 無効な属性で更新する場合 editテンプレートを表示すること[0m
+[31mrspec ./spec/controllers/admin/users_controller_spec.rb:106[0m [36m# Admin::UsersController POST #withdraw ユーザーを無効化すること[0m
+[31mrspec ./spec/controllers/admin/users_controller_spec.rb:112[0m [36m# Admin::UsersController POST #withdraw セッションをリセットすること[0m
+[31mrspec ./spec/controllers/admin/users_controller_spec.rb:117[0m [36m# Admin::UsersController POST #withdraw ルートパスにリダイレクトすること[0m
+

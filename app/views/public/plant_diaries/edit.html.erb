@@ -15,6 +15,8 @@
 
         <div class="pt-5 actions text-center">
           <%= form.submit '更新する', class: 'btn btn-primary' %>
+          <%= link_to '戻る', :back, class: 'btn btn-secondary' %>
+          <%= link_to '削除', @plant_diary, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
         </div>
 
       <% end %>

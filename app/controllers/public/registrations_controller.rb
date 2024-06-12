@@ -67,4 +67,10 @@ class Public::RegistrationsController < Devise::RegistrationsController
   def configure_account_update_params
     devise_parameter_sanitizer.permit(:account_update, keys: [:name])
   end
+  
+    # 新規会員登録後のリダイレクト先を設定
+  def after_sign_up_path_for(resource)
+    mypage_users_path
+  end
+  
 end

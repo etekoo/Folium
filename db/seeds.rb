@@ -18,74 +18,69 @@ Admin.find_or_create_by!(email: ENV['ADMIN_EMAIL']) do |admin|
 end
 
 # #ユーザー
-# user = User.find_or_create_by!(
-#   email: 'example@example.com',
-#   password: 'password',
-#   name: 'John Doe',
-#   introduction: 'Hello, I am John Doe.',
-#   is_active: true
-# )
-　
-# user = User.find_or_create_by!(
-#   email: 'test@test.com',
-#   password: 'password',
-#   name: 'Jane Smith',
-#   introduction: 'Nice to meet you!',
-#   is_active: true
-# )
-
-# user.image.attach(
-#   io: File.open(Rails.root.join('app', 'assets', 'images', 'Jane_Smith.jpg')),
-#   filename: 'Jane_Smith.jpg'
-# )
+User.find_or_create_by!(email: "sample@example.com") do |user|
+  user.password = 'password'
+  user.name = 'John Doe'
+  user.introduction = 'Hello, I am John Doe.'
+end
 
 
-user.image.attach(
-  io: File.open(Rails.root.join('app','public', 'packs', 'images', 'Jane_Smith.jpg')),
-  filename: 'Jane_Smith.jpg'
+smith = User.find_or_create_by!(email: 'test@example.com') do |user|
+  user.password = 'password'
+  user.name = 'Jane Smith'
+  user.introduction = 'Nice to meet you'
+  user.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/Jane_Smith.jpg"), filename:"Jane_Smith.jpg")
+end
+
+User.find_or_create_by!(email: "example@example.com") do |user|
+  user.password = 'password'
+  user.name = 'John K'
+  user.introduction = 'Hello, I am John K.'
+end
+
+
+#育成記録サンプル
+cactus_diary = PlantDiary.find_or_create_by!(
+  user_id: 1,
+  title: "サボテンの成長記録",
+  content: "サボテンの成長過程を記録しています。日光の当て方や水やりの頻度、土の乾き具合などをメモしています。"
 )
 
-# #育成記録サンプル
-# cactus_diary = PlantDiary.find_or_create!(
-#   user_id: 1,
-#   title: "サボテンの成長記録",
-#   content: "サボテンの成長過程を記録しています。日光の当て方や水やりの頻度、土の乾き具合などをメモしています。"
-# )
+cactus_diary.image.attach(
+  io: File.open("#{Rails.root}/db/fixtures/cactus.jpg"),
+  filename: 'cactus.jpg',
+  content_type: 'image/jpeg'
+)
 
+ficus_diary = PlantDiary.find_or_create_by!(
+  user_id: 1,
+  title: "フィカス(ゴムの木)の日々の変化",
+  content: "フィカスの葉の色や状態の変化を定期的に記録しています。光の当たり方や水やりのタイミングなども一緒にメモしています。"
+)
 
-# cactus_diary.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'cactus.jpg')), filename: 'cactus.jpg')
+ficus_diary.image.attach(
+  io: File.open("#{Rails.root}/db/fixtures/ficus.jpg"),
+  filename: 'ficus.jpg',
+  content_type: 'image/jpeg'
+)
 
-# ficus_diary = PlantDiary.find_or_create!(
-#   user_id: 1,
-#   title: "フィカス(ゴムの木)の日々の変化",
-#   content: "フィカスの葉の色や状態の変化を定期的に記録しています。光の当たり方や水やりのタイミングなども一緒にメモしています。"
-# )
+schefflera_diary = PlantDiary.find_or_create_by!(
+  user_id: 2,
+  title: "シェフレラの生育記録",
+  content: "シェフレラの育成についての詳細なメモです。新しい葉が出るサイクルや土の交換時期などを記録しています。"
+)
 
+schefflera_diary.image.attach(
+  io: File.open("#{Rails.root}/db/fixtures/schefflera.jpg"),
+  filename: 'schefflera.jpg',
+  content_type: 'image/jpeg'
+)
 
-cactus_diary.image.attach(io: File.open(Rails.root.join('public', 'packs', 'development', 'images', 'cactus.jpg')), filename: 'cactus.jpg')
-
-# ficus_diary.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'ficus.jpg')), filename: 'ficus.jpg')
-
-
-# schefflera_diary = PlantDiary.find_or_create!(
-#   user_id: 2,
-#   title: "シェフレラの生育記録",
-#   content: "シェフレラの育成についての詳細なメモです。新しい葉が出るサイクルや土の交換時期などを記録しています。"
-# )
-
-
-ficus_diary.image.attach(io: File.open(Rails.root.join('public', 'packs', 'development', 'images', 'ficus.jpg')), filename: 'ficus.jpg')
-# schefflera_diary.image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'schefflera.jpg')), filename: 'schefflera.jpg')
-
-
-# green_bean_diary = PlantDiary.find_or_create!(
-#   user_id: 1,
-#   title: "グリーンビーンの成長記録",
-#   content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
-# )
-
-schefflera_diary.image.attach(io: File.open(Rails.root.join('public', 'packs', 'development', 'images', 'schefflera.jpg')), filename: 'schefflera.jpg')
-
+green_bean_diary = PlantDiary.find_or_create_by!(
+  user_id: 1,
+  title: "グリーンビーンの成長記録",
+  content: "グリーンビーンの種を植えてからの成長過程を記録しています。初めての挑戦なのでどうなるかドキドキです！"
+)
 
 
 puts '初期データを追加しました。'

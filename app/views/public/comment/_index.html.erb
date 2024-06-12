@@ -1,0 +1,20 @@
+<table class="table">
+  <tbody>
+    <% plant_diary.comments.each do |comment| %>
+      <tr>
+        <td>
+          <%= link_to user_path(comment.user), class: "d-inline-block text-center" do %>
+            <%= image_tag comment.user.resize_profile_image(100, 100, 'fill'), class: "rounded-circle", width: "30", height: "30" %><br>
+            <%= comment.user.name %>
+          <% end %>
+        </td>
+        <td><%= comment.content %></td>
+        <td>
+          <% if comment.user == current_user %>
+            <%= link_to "Destroy", plant_diary_comment_path(plant_diary, comment), method: :delete, class: "btn btn-danger float-right" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

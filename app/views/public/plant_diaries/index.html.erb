@@ -1,8 +1,16 @@
 <div class="container">
-  <h1 class="text-center">Plant Diaries</h1>
 
-  <div class="row justify-content-center">
+  <div class="row pt-5 justify-content-center">
+
+
+    <div class="col-md-2 border">
+      <%= render 'public/plant_diaries/sidebar' %>
+    </div>
+
     <div class="col-md-8">
+
+      <h1 class="border-bottom">Plant Diaries</h1>
+
       <%= link_to '新規投稿', new_plant_diary_path, class: "btn btn-success mb-3" %>
 
       <table class="table table-striped">
@@ -18,11 +26,7 @@
           <% @plant_diaries.each do |plant_diary| %>
             <tr>
               <td>
-                <% if plant_diary.image.attached? %>
-                  <%= image_tag plant_diary.image, class: "img-thumbnail", style: "max-width: 100px; max-height: 100px;" %>
-                <% else %>
-                  <%= image_tag 'diary_no_image', size: "100x100", class: "img-thumbnail" %>
-                <% end %>
+               <%= image_tag plant_diary.resize_diary_image(100, 100, 'fill'), class: "img-thumbnail" %>
               </td>
 
               <td><%= plant_diary.title %></td>
