@@ -1,13 +1,17 @@
 <h1>Admin::PlantDiaries#index</h1>
 <p>Find me in app/views/admin/plant_diaries/index.html.erb</p>
 
-<div class="container">
-  <h1 class="text-center">Plant Diaries</h1>
+<div class="container-fluid">
+
 
   <div class="row justify-content-center">
-    <div class="col-md-8">
-      <%= link_to '新規投稿', new_plant_diary_path, class: "btn btn-success mb-3" %>
 
+    <div class="col-2 border">
+    </div>
+
+
+    <div class="col-md-8">
+       <h2 class="">Plant Diaries</h2>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -18,21 +22,18 @@
         </thead>
 
         <tbody>
-          <% @plant_diaries.each do |plant_diary| %>
-            <tr>
-              <td>
-                <% if plant_diary.image.attached? %>
-                  <%= image_tag plant_diary.image, class: "img-thumbnail", style: "max-width: 100px; max-height: 100px;" %>
-                <% else %>
-                  <%= image_tag 'diary_no_image', size: "100x100", class: "img-thumbnail" %>
-                <% end %>
-              </td>
+              <% @plant_diaries.each do |plant_diary| %>
+                <tr>
+                  <td>
+                      <%= image_tag plant_diary.resize_diary_image(100, 100, 'fill'), class: "img-thumbnail" %>
+                  </td>
 
-              <td><%= plant_diary.title %></td>
+                    <td><%= plant_diary.title %></td>
+                    <td><%= link_to 'Show', admin_plant_diary_path(plant_diary), class: "btn btn-info btn-sm" %></td>
+                    <td><%= link_to 'Delete', admin_plant_diary_path(plant_diary), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
 
-              <td><%= link_to 'Show', plant_diary, class: "btn btn-info btn-sm" %></td>
-            </tr>
-          <% end %>
+                </tr>
+              <% end %>
         </tbody>
       </table>
     </div>

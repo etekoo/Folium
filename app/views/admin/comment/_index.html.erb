@@ -10,9 +10,9 @@
         </td>
         <td><%= comment.content %></td>
         <td>
-          <% if comment.user == current_user %>
-            <%= link_to "Destroy", plant_diary_comment_path(plant_diary, comment), method: :delete, class: "btn btn-danger float-right" %>
-          <% end %>
+
+            <%= link_to "Destroy", admin_plant_diary_comment_path(comment.plant_diary, comment), method: :delete, class: "btn btn-danger float-right" %>
+
         </td>
       </tr>
     <% end %>

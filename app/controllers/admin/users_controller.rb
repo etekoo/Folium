@@ -1,10 +1,12 @@
 class Admin::UsersController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_user, only: [:mypage, :edit, :update, :withdraw]
   before_action :ensure_guest_user, only: [:edit]
+  before_action :active_only, only: [:show]
 
 
   def index
-    @users = User.all
+    @users = User.where(is_active: true)
   end
 
   def show
@@ -37,6 +39,16 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.email == "guest@example.com"
       redirect_to user_path(current_user) , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
+    end
+  end
+  
+  #無効なユーザーを除外
+  def active_only
+    user = User.find(params[:id])
+    if user.is_active?
+    else
+      flash[:alert] = "指定のユーザーは退会済みです"
+      redirect_to mypage_path
     end
   end
 

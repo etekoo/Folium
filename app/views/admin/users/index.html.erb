@@ -1,13 +1,13 @@
 <h1>Admin::Users#index</h1>
 <p>Find me in app/views/admin/users/index.html.erb</p>
 <div class="container-fluid">
-  <div class="row">
-  
-    <div class="col-3 border">
-    </div>  
-      
-    <div class="col-9">
-      
+  <div class="row justify-content-center">
+
+    <div class="col-2 border">
+    </div>
+
+    <div class="col-8">
+
     <h2>Users List</h2>
       <table class="table table-striped">
         <thead>
@@ -16,16 +16,17 @@
             <th>Name</th>
           </tr>
         </thead>
-        <tbody>
-          <% @users.each do |user| %>
-            <tr>
-              <td><%= user.id %></td>
-              <td><%= user.name %></td>
-            </tr>
-          <% end %>
-        </tbody>
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.id %></td>
+                <td><%= user.name %></td>
+                <td><%= link_to 'Show', admin_user_path(user), class: "btn btn-info btn-sm" %></td> <!-- Showボタンの追加 -->
+              </tr>
+            <% end %>
+          </tbody>
       </table>
-      
+
     </div>
-  </div> 
+  </div>
 </div>
