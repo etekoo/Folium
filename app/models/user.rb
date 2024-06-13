@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_one_attached :image
   has_many :plant_diaries, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :communitymembers, dependent: :destroy
 
   # 画像をリサイズして取得する
   def resize_profile_image(width, height, mode)

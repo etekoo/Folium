@@ -1,2 +1,9 @@
-<h1>Public::Communities#new</h1>
-<p>Find me in app/views/public/communities/new.html.erb</p>
+<div class='container pt-5'>
+  <div class='row'>
+    <div class="col-md-8  mx-auto">
+      <h3>Create Community</h3>
+        <%#= render 'layouts/errors', obj: @community %>
+        <%= render 'public/communities/form', community: @community %>
+    </div>
+  </div>
+</div>

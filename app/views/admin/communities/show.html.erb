@@ -1,2 +1,32 @@
 <h1>Admin::Communities#show</h1>
 <p>Find me in app/views/admin/communities/show.html.erb</p>
+
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col'>
+      <h2>Community Detail</h2>
+      <%= link_to 'Destroy', admin_community_path(@community), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger" %>
+        </tbody>
+      <table class="table">
+        <thead>
+          <tr>
+            <td>コミュニティ名</td>
+            <td>紹介文</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= image_tag @community.get_image, size:"100x100" %></td>
+            <td><%= @community.name %></td>
+            <td><%= @community.introduction %></td>
+
+          </tr>
+          
+      </table>
+        <h2>コミュニティユーザー</h2>
+        <% @community.communitymembers.each do |member| %>
+        <p><%= member.user.name %></p>
+        <% end %>
+    </div>
+  </div>
+</div>

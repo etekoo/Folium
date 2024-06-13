@@ -1,2 +1,48 @@
+
+<div class='container px-5 px-sm-0'>
 <h1>Public::Communities#show</h1>
 <p>Find me in app/views/public/communities/show.html.erb</p>
+
+
+  <div class='row'>
+    <div class='col'>
+      <h2>User info</h2>
+      <%#= render 'users/info', user: current_user %>
+
+    <div class='col-md-8'>
+      <h2>Community Detail</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <td>コミュニティ名</td>
+            <td>紹介文</td>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <th><%= image_tag @community.get_image, size:"100x100" %></th>
+              <th><%= @community.name %></th>
+              <th><%= @community.introduction %></th>
+              <% if @community.owner_id == current_user.id %>
+                <td>
+                  <%= link_to 'Edit', edit_community_path(@community), class: "btn btn-sm btn-success" %>
+                </td>
+              <% end %>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<% if user_signed_in? %>
+  <% if @community.communitymembers.exists?(user_id: current_user.id) %>
+    <%= link_to "脱退する", community_communitymember_path(@community), method: :delete %>
+  <% else %>
+    <%= link_to "参加する",community_communitymembers_path(@community), method: :post %>
+  <% end %>
+<% end %>
+<h2>コミュニティユーザー</h2>
+<% @community.communitymembers.each do |member| %>
+  <p><%= member.user.name %></p>
+<% end %>
