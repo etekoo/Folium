@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     end
 
     resources :plant_diaries do                                 # プラントダイアリー関連
+      resource :favorite, only: [:create, :destroy]
       resources :comments, only: [:create, :destroy]            # コメント関連
     end
 
