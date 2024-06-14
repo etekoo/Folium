@@ -1,2 +1,13 @@
 <h1>Public::Communities#edit</h1>
 <p>Find me in app/views/public/communities/edit.html.erb</p>
+<div class='container'>
+  <div class='row'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+      <h3>Editing Community</h3>
+      <%= render 'public/communities/form', community: @community %>
+      <%= link_to 'Back', communities_path, class: 'btn btn-secondary' %>
+      <%= link_to '削除', community_path(@community), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+    </div>
+    </div>
+  </div>
+</div>
