@@ -82,6 +82,10 @@ class Public::PlantDiariesController < ApplicationController
     end
   end
 
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
+  end
+
   def plant_diary_params
     params.require(:plant_diary).permit(:title, :content, :user_id, :image)
   end

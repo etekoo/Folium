@@ -5,6 +5,8 @@ class PlantDiary < ApplicationRecord
   belongs_to :user
   has_one_attached :image
   has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorited_users, through: :favorites, source: :user
 
   # 画像をリサイズして取得する
   def resize_diary_image(width, height, mode)
@@ -37,6 +39,10 @@ class PlantDiary < ApplicationRecord
     else
       @plant_diaries = PlantDiary.all
     end
+  end
+  
+  def favorited_by?(user)
+    favorited_users.exists?(user.id)
   end
 
 end
