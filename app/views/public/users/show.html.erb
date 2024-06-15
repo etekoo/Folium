@@ -1,63 +1,64 @@
 <div class="container pt-5">
-
   <div class="row justify-content-center">
 
-    <div class="col-md-2 border">
+    <div class="col-md-2 pl-0 pr-0 ">
       <%= render 'public/plant_diaries/sidebar' %>
     </div>
 
-
-    <div class="col-md-8 pt-5 px-5">
+    <div class="col-md-8 offset-md-1">
 
       <!--ユーザー情報-->
-      <h1 class="border-bottom">ユーザー詳細</h1>
-
-      <div class="user-info pt-3">
-        <div style="width: 100px; height: 100px;">
-          <%= image_tag @user.resize_profile_image(100, 100, 'fill'), class: "rounded-circle" %>
+      <div class="row border-bottom">
+        <div class="col-md-8">
+          <h1>ユーザー詳細</h1>
         </div>
-
-        <div class="user-info pt-3">
-          <p>ユーザー名: <%= @user.name %></p>
-          <p>メールアドレス: <%= @user.email %></p>
-          <p>自己紹介: <%= @user.introduction %></p>
-        </div>
-
-
-      　   <% if current_user && current_user.id == @user.id %>
-          <%= link_to '編集', edit_user_path(@user), class: 'btn btn-primary' %>
-          <% end %>
       </div>
 
 
+      <div class="row">
+        <div class="col-md-8">
+          <div class="user-info pt-3">
+            <div style="width: 100px; height: 100px;">
+              <%= image_tag @user.resize_profile_image(100, 100, 'fill'), class: "rounded-circle" %>
+            </div>
+            <div class="user-info pt-3">
+              <p>ユーザー名: <%= @user.name %></p>
+              <p>メールアドレス: <%= @user.email %></p>
+              <p>自己紹介: <%= @user.introduction %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!--投稿一覧-->
-      <h2 class="">投稿一覧</h2>
+      <h2>投稿一覧</h2>
 
-      <table class="table table-striped">
+      <table class="table pt-5 table-striped post-list-table" border="0">
         <thead>
           <tr>
-            <th>画像</th>
-            <th>タイトル</th>
-            <th></th>
+            <th class="thumbnail">Image</th>
+            <th>Details</th>
           </tr>
         </thead>
         <tbody>
-          <% @plant_diaries.each_with_index do |plant_diary, index| %>
-            <tr class="<%= index.even? ? 'bg-light' : 'bg-white' %>">
+          <% @plant_diaries.each do |plant_diary| %>
+            <tr class="post-item border-bottom">
+              <td><%= image_tag plant_diary.resize_diary_image(100, 100, 'fill'), class: "img-thumbnail" %></td>
               <td>
-                <% if plant_diary.image.attached? %>
-                  <%= image_tag plant_diary.image, class: "img-thumbnail", style: "max-width: 100px; max-height: 100px;" %>
-                <% else %>
-                  <%= image_tag 'diary_no_image', size: "100x100", class: "img-thumbnail" %>
-                <% end %>
-              </td>
-              <td><%= link_to plant_diary.title, plant_diary %></td>
-              <td>
-                <% if current_user && current_user.id == plant_diary.user_id %>
-                  <%= link_to '編集', edit_plant_diary_path(plant_diary), class: 'btn btn-primary' %>
-                  <%= link_to '削除', plant_diary, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
-                <% end %>
+                <div class="d-flex flex-column">
+                  <div class=" mb-2">
+                    <span class="post-date"><%= plant_diary.created_at.strftime("%Y-%m-%d") %></span>
+      
+                  </div>
+                  <p class="post-title"><%= link_to truncate(plant_diary.title, length: 20), plant_diary %></p>
+                  <p class="post-content"><%= truncate(plant_diary.content, length: 60) %></p>
+                  <div class="d-flex justify-content-between align-items-end">
+                    <span class="comment-count mr-2"><i class="fa-regular fa-comment-dots"></i><%= plant_diary.comments.count %></span>
+                    <div id="favorite_btn_<%= plant_diary.id %>"><%= render 'public/favorites/favorite', plant_diary: plant_diary %></div>
+                    <%= link_to plant_diary.user.name, user_path(plant_diary.user), class: "post-user ml-auto" %>
+                  </div>
+                </div>
               </td>
             </tr>
           <% end %>
