@@ -1,10 +1,6 @@
 <div class="container-fluid pt-5">
-
   <div class="row justify-content-center">
-
-    <div class="col-2 border">
-    </div>
-
+    
     <div class="col-md-8">
        <h2 class="">Plant Diaries</h2>
       <table class="table table-striped">
@@ -12,21 +8,15 @@
           <tr>
             <th>Image</th>
             <th>Title</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th>Comments</th>
+            <th>Favorites</th>
             <th colspan="2">Actions</th>
           </tr>
         </thead>
-
-        <tbody>
-              <% @plant_diaries.each do |plant_diary| %>
-                <tr>
-                  <td>
-                      <%= image_tag plant_diary.resize_diary_image(50, 50, 'fill'), class: "img-thumbnail" %>
-                  </td>
-                    <td><%= plant_diary.title %></td>
-                    <td><%= link_to 'Show', admin_plant_diary_path(plant_diary), class: "btn btn-info btn-sm" %></td>
-                    <td><%= link_to 'Delete', admin_plant_diary_path(plant_diary), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
-                </tr>
-              <% end %>
+        <tbody class="post-list">
+          <%= render partial: "admin/plant_diaries/index", locals: { plant_diaries: @plant_diaries } %>
         </tbody>
       </table>
     </div>
