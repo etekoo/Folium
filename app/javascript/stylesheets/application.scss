@@ -42,23 +42,18 @@ ul.list-group .list-group-item.custom-bg-color {
   }
 }
 
-// 投稿リストのテーブルのスタイル
-// .post-list-table th {
-//   width: 150px;
-// }
-
 .post-list-table td {
   height: 130px;
 }
-
-// サムネイルボックスのスタイル
-// .thumbox img {
-//   width: 120px;
-//   height: 120px;
-// }
 
 .table th, .table td {
     padding: 0.75rem;
     vertical-align: top;
     border-top: 0px solid #dee2e6;
+}
+
+/* マウスカーソルを合わせたときのスタイル */
+.user-row:hover {
+  background-color: #d8d8d8; /* ホバー時の暗い背景色 */
+  cursor: pointer; /* カーソルをポインターに変更 */
 }

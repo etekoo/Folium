@@ -17,6 +17,7 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+
 // 画像非同期化
 document.addEventListener('turbolinks:load', () => {
   const image = document.getElementById('profile-image');
@@ -41,4 +42,24 @@ document.addEventListener('turbolinks:load', () => {
     image.style.display = 'none'; // 画像非表示
   };
 
+});
+
+// 管理者側ユーザー一覧表示用
+document.addEventListener('DOMContentLoaded', function() {
+  const userRows = document.querySelectorAll('.user-row');
+
+  userRows.forEach(row => {
+    row.addEventListener('click', function() {
+      const userId = this.dataset.userId;
+
+      fetch(`/admin/users/${userId}`)
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('user-detail').innerHTML = data;
+        })
+        .catch(error => {
+          console.error('Error fetching user details:', error);
+        });
+    });
+  });
 });
