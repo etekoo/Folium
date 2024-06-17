@@ -6,7 +6,7 @@
       <h3>Editing Community</h3>
       <%= render 'public/communities/form', community: @community %>
       <%= link_to 'Back', communities_path, class: 'btn btn-secondary' %>
-      <%= link_to '削除', community_path(@community), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+      <%= link_to '削除', community_path(@community), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-outline-danger' %>
     </div>
     </div>
   </div>

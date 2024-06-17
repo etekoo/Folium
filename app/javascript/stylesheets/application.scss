@@ -1,1 +1,59 @@
 @use '~bootstrap/scss/bootstrap';
+
+.nav-item.active {
+  border-bottom: 2px solid #333; /* ボーダーのスタイルを指定 */
+}
+
+// リストグループアイテムのスタイル
+ul.list-group .list-group-item.custom-bg-color {
+  background-color: #85AB58 !important;
+  color: white !important;
+}
+
+// サイドバーアイテムのスタイル
+.sidebar-item {
+  position: relative;
+  display: block;
+  padding: 0.35rem 0.50rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+// 画像サムネイルのスタイル
+.img-thumbnail {
+  padding: 0rem;
+  background-color: #fff;
+  border-radius: 0.25rem;
+  max-width: 100%;
+  height: auto;
+}
+
+// 投稿アイテムのスタイル
+.post-item {
+  margin-bottom: 0rem;
+
+  .post-date,
+  .post-title,
+  .post-content {
+    margin-bottom: 0rem;
+  }
+
+  .post-actions {
+    margin-top: 0.5rem;
+  }
+}
+
+.post-list-table td {
+  height: 130px;
+}
+
+.table th, .table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 0px solid #dee2e6;
+}
+
+/* マウスカーソルを合わせたときのスタイル */
+.user-row:hover {
+  background-color: #d8d8d8; /* ホバー時の暗い背景色 */
+  cursor: pointer; /* カーソルをポインターに変更 */
+}
