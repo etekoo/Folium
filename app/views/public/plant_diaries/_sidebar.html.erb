@@ -2,7 +2,7 @@
   <li class="list-group-item custom-bg-color">ユーザーメニュー</li>
   <a href="<%= mypage_users_path %>" class="sidebar-item list-group-item list-group-item-action">マイページ</a>
   <a href="#" class="sidebar-item list-group-item list-group-item-action">タイムライン</a>
-  <a href="#" class="sidebar-item list-group-item list-group-item-action">お気に入り</a>
+  <a href="<%= favorites_user_path(current_user) %>" class="sidebar-item list-group-item list-group-item-action">お気に入り</a>
   <a href="#" class="sidebar-item list-group-item list-group-item-action">メッセージ</a>
 </ul>
 
@@ -14,6 +14,6 @@
 
 <ul class="list-group pt-5 text-center">
   <li class="list-group-item custom-bg-color">コミュニティ</li>
-  <a href="#" class="sidebar-item list-group-item list-group-item-action">参加中のコミュニティ</a>
+  <a href="<%= communities_user_path(current_user) %>" class="sidebar-item list-group-item list-group-item-action">参加中のコミュニティ</a>
   <a href="#" class="sidebar-item list-group-item list-group-item-action">コミュニティを探す</a>
 </ul>

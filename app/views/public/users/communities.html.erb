@@ -1,0 +1,7 @@
+<h1><%= @user.name %>さんの参加中のコミュニティ一覧</h1>
+
+<ul>
+  <% @communities.each do |community| %>
+    <li><%= community.name %></li>
+  <% end %>
+</ul>

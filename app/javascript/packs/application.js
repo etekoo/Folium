@@ -45,7 +45,7 @@ document.addEventListener('turbolinks:load', () => {
 });
 
 // 管理者側ユーザー一覧表示用
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('turbolinks:load', function() {
   const userRows = document.querySelectorAll('.user-row');
 
   userRows.forEach(row => {
@@ -61,5 +61,18 @@ document.addEventListener('DOMContentLoaded', function() {
           console.error('Error fetching user details:', error);
         });
     });
+  });
+});
+
+// タブメニューの記述
+$(document).on('turbolinks:load', function() {
+  $('#tab-contents .tab').not('#tab1').hide();
+
+  $('#tab-menu').on('click', 'a', function(event) {
+    $('#tab-contents .tab').hide();
+    $('#tab-menu .active').removeClass('active');
+    $(this).addClass('active');
+    $($(this).attr('href')).show();
+    event.preventDefault();
   });
 });

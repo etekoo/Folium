@@ -1,5 +1,11 @@
 @use '~bootstrap/scss/bootstrap';
 
+* {
+  margin: 0;
+  padding: 0;
+  // box-sizing: border-box;
+}
+
 .nav-item.active {
   border-bottom: 2px solid #333; /* ボーダーのスタイルを指定 */
 }
@@ -56,4 +62,47 @@ ul.list-group .list-group-item.custom-bg-color {
 .user-row:hover {
   background-color: #d8d8d8; /* ホバー時の暗い背景色 */
   cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+#tab-menu {
+  display: flex;
+}
+
+#tab-menu li {
+  list-style-type: none;
+  width: 25%;
+}
+
+#tab-menu li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 20px;
+  text-align: center;
+  background: #000;
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+#tab-menu .active {
+  background: #fff;
+  color: #000;
+}
+
+#tab-contents {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#tab-contents .tab {
+  width: 100%;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #000;
+  border-top: none;
+}
+
+#tab-contents p {
+  color: #000;
+  line-height: 2.5;
 }
