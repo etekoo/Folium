@@ -38,6 +38,13 @@ Rails.application.routes.draw do
       get 'mypage', on: :collection
       get 'unsubscribe', on: :member
       patch 'withdraw', on: :member
+     member do
+      get :follows, :followers
+      get :favorites
+      get :communities
+      get :communitymembers
+     end
+      resource :relationships, only: [:create, :destroy]
     end
   end
 
