@@ -1,0 +1,9 @@
+<!--<h4><%#= @user.name %>さんの参加中のコミュニティ一覧</h4>-->
+
+<ul class="list-group">
+  <% @communities.each do |community| %>
+    <li class="list-group-item">
+      <%= link_to community.name, community_path(community) %>
+    </li>
+  <% end %>
+</ul>

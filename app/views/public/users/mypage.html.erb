@@ -34,41 +34,37 @@
           </div>
         </div>
       </div>
+          <div class="wrap">
+
+      <ul id="tab-menu">
+        <li><a href="#tab1" class="active">プロフィール</a></li>
+        <li><a href="#tab2" class="">育成記録</a></li>
+        <li><a href="#tab3" class="">おきにいり</a></li>
+        <li><a href="#tab4" class="">コミュニティ</a></li>
+      </ul>
+
+      <div id="tab-contents">
+        <div id="tab1" class="tab">
+          <p>TAB4のテキストが入ります。TAB4のテキストが入ります。TAB4のテキストが入ります。TAB4のテキストが入ります。</p>
+        </div>
+
+         <div id="tab2" class="tab">
+           <%= render 'public/plant_diaries/index' %>
+         </div>
+
+        <div id="tab3" class="tab">
+           <%= render 'public/users/favorites' %>
+        </div>
+
+        <div id="tab4" class="tab">
+           <%= render 'public/users/communities' %>
+        </div>
+      </div>
+    </div>
 
 
 
-      <!--投稿一覧-->
-      <h2 class="">投稿一覧</h2>
 
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>画像</th>
-            <th>タイトル</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @plant_diaries.each_with_index do |plant_diary, index| %>
-            <tr class="<%= index.even? ? 'bg-light' : 'bg-white' %>">
-              <td>
-                <% if plant_diary.image.attached? %>
-                  <%= image_tag plant_diary.image, class: "img-thumbnail", style: "max-width: 100px; max-height: 100px;" %>
-                <% else %>
-                  <%= image_tag 'diary_no_image', size: "100x100", class: "img-thumbnail" %>
-                <% end %>
-              </td>
-              <td><%= link_to plant_diary.title, plant_diary %></td>
-              <td>
-                <% if current_user && current_user.id == plant_diary.user_id %>
-                  <%= link_to '編集', edit_plant_diary_path(plant_diary), class: 'btn btn-primary' %>
-                  <%= link_to '削除', plant_diary, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
 
 
     </div>
