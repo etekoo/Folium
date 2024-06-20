@@ -1,0 +1,9 @@
+<% @favorites.each do |favorite| %>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to favorite.plant_diary.title, plant_diary_path(favorite.plant_diary) %></h5>
+          <h6 class="card-subtitle mb-2 text-muted"><%= favorite.plant_diary.user.name %></h6>
+          <p class="card-text"><%= favorite.plant_diary.content %></p>
+        </div>
+      </div>
+    <% end %>

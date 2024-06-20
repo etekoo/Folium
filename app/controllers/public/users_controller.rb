@@ -6,6 +6,8 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @plant_diaries = @user.plant_diaries
+    @favorites = @user.favorites
+    @communities = @user.communities
   end
 
   def edit
@@ -15,6 +17,8 @@ class Public::UsersController < ApplicationController
     begin
       @user = User.find(params[:id])
       @plant_diaries = @user.plant_diaries
+      @favorites = @user.favorites
+      @communities = @user.communities
       @following_users = @user.following_user
       @follower_users = @user.follower_user
       redirect_to mypage_users_path if current_user == @user
@@ -60,7 +64,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @favorites = @user.favorites # お気に入りの取得
   end
-  
+
   def communities
     @user = current_user # ログインしているユーザーを取得するためのメソッド
     @communities = @user.communities
