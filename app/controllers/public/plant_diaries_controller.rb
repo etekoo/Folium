@@ -9,15 +9,19 @@ class Public::PlantDiariesController < ApplicationController
   end
 
   def index
-    @plant_diaries = PlantDiary.includes(:user).where(users: { is_active: true })
+    @plant_diaries = PlantDiary.includes(:user, :tags).where(users: { is_active: true })
+    @tags = Tag.all
   end
 
   def show
-   @comment = Comment.new
+    @comment = Comment.new
+    @tag_list = @plant_diary.tags.pluck(:name).join(',')
+    @plant_diary_tags = @plant_diary.tags
   end
 
   def create
-  @plant_diary = PlantDiary.new(plant_diary_params)
+    @plant_diary = PlantDiary.new(plant_diary_params)
+    tag_list = params[:plant_diary][:tags].split(',') if params[:plant_diary][:tags]
 
     if current_user.nil?
       Rails.logger.debug("current_user is nil")
@@ -30,6 +34,7 @@ class Public::PlantDiariesController < ApplicationController
     @plant_diary.user_id = current_user.id
 
     if @plant_diary.save
+      @plant_diary.save_plan_tags(tag_list)
       flash[:notice] = '投稿に成功しました.'
       redirect_to @plant_diary
     else
@@ -39,11 +44,14 @@ class Public::PlantDiariesController < ApplicationController
   end
 
   def edit
-
+    @tag_list = @plant_diary.tags.pluck(:name).join(',')
   end
 
   def update
+    tag_list = params[:plant_diary][:tags].split(',') if params[:plant_diary][:tags]
     if @plant_diary.update(plant_diary_params)
+      @plant_diary.tags.destroy_all
+      @plant_diary.save_plan_tags(tag_list)
       flash[:notice] = '更新に成功しました.'
       redirect_to @plant_diary
     else
@@ -58,23 +66,26 @@ class Public::PlantDiariesController < ApplicationController
     redirect_to mypage_users_path
   end
 
+  def search_tag
+    @tag_list = Tag.all
+    @tag = Tag.find(params[:tag_id])
+    @plant_diaries = @tag.plant_diaries
+  end
+
   private
 
   def set_plant_diary
     @plant_diary = PlantDiary.find(params[:id])
   end
 
-  # 無効なユーザーの投稿を除外
   def filter_activeUser
     user = @plant_diary.user
-    if user.is_active?
-    else
+    unless user.is_active?
       flash[:alert] = "指定のユーザーは退会済みです"
       redirect_to mypage_path
     end
   end
 
-    # ログインユーザーが投稿者かどうか確認
   def confirm_owner
     unless @plant_diary.user == current_user || params[:admin_delete].present?
       flash[:alert] = "編集または削除する権限がありません"

@@ -11,11 +11,18 @@
 
       <%#= link_to '新規投稿', new_plant_diary_path, class: "btn btn-success mb-3" %>
 
+      <h2>タグ一覧</h2>
+      <div class="tags-list">
+        <% @tags.each do |tag| %>
+          <span class="badge badge-info"><i class="fa-sharp fa-solid fa-tag"></i><%= link_to tag.name, search_path(tag_id: tag.id) %></span>
+        <% end %>
+      </div>
+
       <table class="table pt-5 table-striped post-list-table" border="0">
         <thead>
           <tr>
-        <th class="col-2">Image</th>
-        <th class="col-details">Details</th>
+            <th class="col-2">Image</th>
+            <th class="col-details">Details</th>
           </tr>
         </thead>
         <tbody>
@@ -26,7 +33,6 @@
                 <div class="d-flex flex-column">
                   <div class=" mb-2">
                     <span class="post-date"><%= plant_diary.created_at.strftime("%Y-%m-%d") %></span>
-
                   </div>
                   <p class="post-title"><%= link_to truncate(plant_diary.title, length: 20), plant_diary %></p>
                   <p class="post-content"><%= truncate(plant_diary.content, length: 60) %></p>
@@ -35,13 +41,17 @@
                     <div id="favorite_btn_<%= plant_diary.id %>"><%= render 'public/favorites/favorite', plant_diary: plant_diary %></div>
                     <%= link_to plant_diary.user.name, user_path(plant_diary.user), class: "post-user ml-auto" %>
                   </div>
+                  <div class="tags mt-2">
+                    <% plant_diary.tags.each do |tag| %>
+                      <span class="badge badge-secondary"><i class="fa-sharp fa-solid fa-tag"></i> <%= link_to tag.name, search_path(tag_id: tag.id) %></span>
+                    <% end %>
+                  </div>
                 </div>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
-
 
     </div>
   </div>
