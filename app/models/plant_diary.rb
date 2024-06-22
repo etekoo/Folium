@@ -7,6 +7,8 @@ class PlantDiary < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorited_users, through: :favorites, source: :user
+  has_many :plant_diary_tags, dependent: :destroy
+  has_many :tags, through: :plant_diary_tags
 
   # 画像をリサイズして取得する
   def resize_diary_image(width, height, mode)
@@ -19,20 +21,31 @@ class PlantDiary < ApplicationRecord
       image.variant(resize_to_fit: [width, height]).processed
     elsif mode == 'fill'
       image.variant(resize_to_fill: [width, height]).processed
-  # デフォルトのリサイズ方法を指定
     else
       image.variant(resize_to_fill: [800, 800]).processed
     end
   end
 
-
   # 検索方法分岐
   def self.looks(word)
     where("title LIKE ?", "%#{word}%")
   end
-  
+
   def favorited_by?(user)
     favorited_users.exists?(user.id)
   end
 
+  # タグ機能
+  def save_plan_tags(tags)
+    current_tags = self.tags.pluck(:name)
+    current_tags ||= []
+
+    tags.each do |tag_name|
+      tag = Tag.find_or_create_by(name: tag_name.strip)
+      self.tags << tag unless self.tags.include?(tag)
+    end
+
+    tags_to_delete = current_tags - tags
+    self.tags.where(name: tags_to_delete).destroy_all
+  end
 end

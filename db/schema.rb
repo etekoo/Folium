@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_17_170251) do
+ActiveRecord::Schema.define(version: 2024_06_21_062208) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -91,9 +91,25 @@ ActiveRecord::Schema.define(version: 2024_06_17_170251) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "plant_diary_tags", force: :cascade do |t|
+    t.integer "plant_diary_id"
+    t.integer "tag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["plant_diary_id", "tag_id"], name: "index_plant_diary_tags_on_plant_diary_id_and_tag_id", unique: true
+    t.index ["plant_diary_id"], name: "index_plant_diary_tags_on_plant_diary_id"
+    t.index ["tag_id"], name: "index_plant_diary_tags_on_tag_id"
+  end
+
   create_table "relationships", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -115,4 +131,6 @@ ActiveRecord::Schema.define(version: 2024_06_17_170251) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "plant_diary_tags", "plant_diaries"
+  add_foreign_key "plant_diary_tags", "tags"
 end
