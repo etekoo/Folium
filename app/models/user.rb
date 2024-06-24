@@ -14,13 +14,19 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :communitymembers, dependent: :destroy
   has_many :communities, through: :communitymembers
+  # いいね機能
   has_many :favorites, dependent: :destroy
   has_many :favorited_plant_diaries, through: :favorites, source: :plant_diary
-
+  # フォロー機能
   has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy # ① フォローしている人の取得
   has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy # ② フォローされているの人取得
   has_many :following_user, through: :follower, source: :followed # 自分がフォローしている人
   has_many :follower_user, through: :followed, source: :follower # 自分をフォローしている人
+  # チャット機能
+  has_many :user_rooms
+  has_many :chats
+  has_many :rooms, through: :user_rooms
+
 
   # ユーザーをフォローする
   def follow(user_id)

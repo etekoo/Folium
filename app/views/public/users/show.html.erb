@@ -30,7 +30,12 @@
         </div>
       </div>
 
+      <!--チャット機能-->
+    <% if current_user != @user %>
+      <%= link_to 'chatを始める', chat_path(@user.id)%>
+    <% end %>
 
+      <!--フォロー機能-->
       <tr>
           <th>Follows</th>
           <td>
@@ -60,6 +65,7 @@
       </div>
 
 
+    <!--タブメニュー-->
     <div class="wrap">
       <ul id="tab-menu">
         <li><a href="#tab1" class="active">プロフィール</a></li>
