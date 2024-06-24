@@ -48,4 +48,28 @@ class PlantDiary < ApplicationRecord
     tags_to_delete = current_tags - tags
     self.tags.where(name: tags_to_delete).destroy_all
   end
+
+    # 通知機能
+  after_create_commit :notify_followers
+
+  private
+
+  def notify_followers
+    follower_ids = user.followers.pluck(:id)
+    if follower_ids.any?
+      notifications = follower_ids.map do |follower_id|
+        {
+          subject_type: 'Plant_diary',
+          subject_id: self.id,
+          user_id: follower_id,
+          action_type: 'new_plant_diary',
+          created_at: Time.current,
+          updated_at: Time.current
+        }
+      end
+
+      Notification.insert_all(notifications)
+    end
+  end
 end
+

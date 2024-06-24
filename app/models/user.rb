@@ -26,6 +26,8 @@ class User < ApplicationRecord
   has_many :user_rooms
   has_many :chats
   has_many :rooms, through: :user_rooms
+  # 通知
+  has_many :notifications, dependent: :destroy
 
 
   # ユーザーをフォローする
