@@ -1,0 +1,21 @@
+<h1>My Contacts</h1>
+
+<%= link_to 'New Contact', new_contact_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contacts&.each do |contact| %>
+      <tr>
+        <td><%= link_to contact.title, contact_path(contact) %></td>
+        <td><%= contact.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

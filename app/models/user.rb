@@ -29,6 +29,8 @@ class User < ApplicationRecord
   # 通知
   has_many :notifications, dependent: :destroy
 
+  has_many :contacts, dependent: :destroy
+
 
   # ユーザーをフォローする
   def follow(user_id)
