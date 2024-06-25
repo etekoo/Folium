@@ -21,15 +21,16 @@ Rails.application.routes.draw do
   }
 
   root 'public/homes#top'                                     # TOPページ
-  
+
   get 'chat/:id' => 'chats#show', as: 'chat'
   resources :chats, only: [:create]
-  
+
 
   scope module: :public do
     get 'search' => 'searches#search'
     get 'homes/about'
     resources :notifications, only: [:index, :destroy]
+    resources :contacts, only: [:new, :create, :show, :index]
     resources :communities do
       resources :communitymembers, only: [:create, :destroy]  # コミュニティメンバー関連
     end

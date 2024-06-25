@@ -1,0 +1,13 @@
+<%= form_with model: @contact, url: contacts_path, local: true do |form| %>
+  <div>
+    <%= form.label :title, "Title" %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :message, "Message" %>
+    <%= form.text_area :message %>
+  </div>
+  <div>
+    <%= form.submit "Submit" %>
+  </div>
+<% end %>
