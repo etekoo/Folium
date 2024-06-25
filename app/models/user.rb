@@ -30,6 +30,9 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   has_many :contacts, dependent: :destroy
+  
+  has_many :reporter, class_name: "Report", foreign_key: "reporter_id", dependent: :destroy
+  has_many :reported, class_name: "Report", foreign_key: "reported_id", dependent: :destroy
 
 
   # ユーザーをフォローする

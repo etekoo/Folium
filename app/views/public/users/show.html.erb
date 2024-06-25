@@ -10,7 +10,7 @@
       <!--ユーザー情報-->
       <div class="row border-bottom">
         <div class="col-md-8">
-          <h1>ユーザー詳細</h1>
+          <h2>ユーザー詳細</h2>
         </div>
       </div>
 
@@ -65,70 +65,42 @@
       </div>
 
 
-    <!--タブメニュー-->
-    <div class="wrap">
-      <ul id="tab-menu">
-        <li><a href="#tab1" class="active">プロフィール</a></li>
-        <li><a href="#tab2" class="">育成記録</a></li>
-        <li><a href="#tab3" class="">おきにいり</a></li>
-        <li><a href="#tab4" class="">コミュニティ</a></li>
-      </ul>
+      <!--タブメニュー-->
+      <div class="wrap">
+        <ul id="tab-menu">
+          <li><a href="#tab1" class="active">プロフィール</a></li>
+          <li><a href="#tab2" class="">育成記録</a></li>
+          <li><a href="#tab3" class="">おきにいり</a></li>
+          <li><a href="#tab4" class="">コミュニティ</a></li>
+        </ul>
 
-            <div id="tab-contents">
-        <div id="tab1" class="tab">
-          <p>TAB4のテキストが入ります。TAB4のテキストが入ります。TAB4のテキストが入ります。TAB4のテキストが入ります。</p>
-        </div>
+              <div id="tab-contents">
+          <div id="tab1" class="tab">
+            <p>TAB4のテキストが入ります。TAB4のテキストが入ります。TAB4のテキストが入ります。TAB4のテキストが入ります。</p>
+          </div>
 
-         <div id="tab2" class="tab">
-           <%= render 'public/plant_diaries/index' %>
-         </div>
+           <div id="tab2" class="tab">
+             <%= render 'public/plant_diaries/index' %>
+           </div>
 
-        <div id="tab3" class="tab">
-           <%= render 'public/users/favorites' %>
-        </div>
+          <div id="tab3" class="tab">
+             <%= render 'public/users/favorites' %>
+          </div>
 
-        <div id="tab4" class="tab">
-           <%= render 'public/users/communities' %>
+          <div id="tab4" class="tab">
+             <%= render 'public/users/communities' %>
+          </div>
         </div>
       </div>
-    </div>
-
-
-      <!--投稿一覧-->
-      <!--<h2>投稿一覧</h2>-->
-
-      <!--<table class="table pt-5 table-striped post-list-table" border="0">-->
-      <!--  <thead>-->
-      <!--    <tr>-->
-      <!--      <th class="thumbnail">Image</th>-->
-      <!--      <th>Details</th>-->
-      <!--    </tr>-->
-      <!--  </thead>-->
-      <!--  <tbody>-->
-      <!--    <%# @plant_diaries.each do |plant_diary| %>-->
-      <!--      <tr class="post-item border-bottom">-->
-      <!--        <td><%#= image_tag plant_diary.resize_diary_image(100, 100, 'fill'), class: "img-thumbnail" %></td>-->
-      <!--        <td>-->
-      <!--          <div class="d-flex flex-column">-->
-      <!--            <div class=" mb-2">-->
-      <!--              <span class="post-date"><%#= plant_diary.created_at.strftime("%Y-%m-%d") %></span>-->
-
-      <!--            </div>-->
-      <!--            <p class="post-title"><%#= link_to truncate(plant_diary.title, length: 20), plant_diary %></p>-->
-      <!--            <p class="post-content"><%#= truncate(plant_diary.content, length: 60) %></p>-->
-      <!--            <div class="d-flex justify-content-between align-items-end">-->
-      <!--              <span class="comment-count mr-2"><i class="fa-regular fa-comment-dots"></i><%#= plant_diary.comments.count %></span>-->
-      <!--              <div id="favorite_btn_<%#= plant_diary.id %>"><%#= render 'public/favorites/favorite', plant_diary: plant_diary %></div>-->
-      <!--              <%#= link_to plant_diary.user.name, user_path(plant_diary.user), class: "post-user ml-auto" %>-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--        </td>-->
-      <!--      </tr>-->
-      <!--    <%# end %>-->
-      <!--  </tbody>-->
-      <!--</table>-->
-
 
     </div>
   </div>
 </div>
+
+<% if @user != current_user %>
+  <% if current_user.reporter.exists?(reported_id: @user.id) %>
+    <%= button_tag "通報済み", class: "btn btn-secondary", disabled: true %>
+  <% else %>
+    <%= link_to "ユーザーを通報", new_user_report_path(@user), class: "btn btn-danger" %>
+  <% end %>
+<% end %>
