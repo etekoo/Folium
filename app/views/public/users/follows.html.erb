@@ -1,0 +1,25 @@
+<div class="container pt-5">
+  <div class="row justify-content-center">
+    <div class="col">
+      <h3>フォローしているユーザー一覧</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>名前</th>
+            <th>自己紹介</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @following.each do |followed| %>
+            <tr>
+              <td><%= image_tag followed.resize_profile_image(30, 30, 'fit') %></td>
+              <td><%= link_to followed.name, user_path(followed) %></td>
+              <td><%= followed.introduction %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

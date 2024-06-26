@@ -11,11 +11,16 @@
           <%= form.label :content %>
           <%= form.text_area :content, class: "form-control" %>
         </div>
-        
+
         <div class="form-group">
           <%= form.label :image %>
           <%= form.file_field :image, class: "form-control-file" %>
         </div>
+
+        <div class="form-group">
+          <%= form.label :tags, "タグ" %>
+          <%= form.text_field :tags, value: "", class: "form-control" %>
+        </div>>
 
         <%= form.submit '投稿する', class: "btn btn-primary" %>
       </div>

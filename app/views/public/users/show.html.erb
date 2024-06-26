@@ -1,69 +1,96 @@
 <div class="container pt-5">
-
+  <!--左サイドメニュー-->
   <div class="row justify-content-center">
-
-    <div class="col-md-2 border">
+    <div class="col-md-2 pl-0 pr-0">
       <%= render 'public/plant_diaries/sidebar' %>
     </div>
-
-
-    <div class="col-md-8 pt-5 px-5">
-
+　 <!--右メイン部分-->
+    <div class="col-md-8 offset-md-1">
       <!--ユーザー情報-->
-      <h1 class="border-bottom">ユーザー詳細</h1>
-
-      <div class="user-info pt-3">
-        <div style="width: 100px; height: 100px;">
-          <%= image_tag @user.resize_profile_image(100, 100, 'fill'), class: "rounded-circle" %>
+      <div class="row border-bottom">
+        <div class="col-md-8">
+          <h2>プロフィール</h2>
         </div>
-
-        <div class="user-info pt-3">
-          <p>ユーザー名: <%= @user.name %></p>
-          <p>メールアドレス: <%= @user.email %></p>
-          <p>自己紹介: <%= @user.introduction %></p>
-        </div>
-
-
-      　   <% if current_user && current_user.id == @user.id %>
-          <%= link_to '編集', edit_user_path(@user), class: 'btn btn-primary' %>
-          <% end %>
       </div>
 
+      <div class="row user-info mt-4 mb-5 align-items-center">
+        <div class="col-md-2">
+          <%= image_tag @user.resize_profile_image(100, 100, 'fill'), class: "rounded-circle" %>
+        </div>
+        <div class="col-md-6">
+          <h3><%= @user.name %></h3>
+          <div class="d-flex mt-2">
+            <div class="mr-3">
+              <span>フォロー</span>
+              <span class="ml-2"><%= link_to follows_user_path(@user) do %>
+                <h6><%= @user.follower.count %></h6>
+              <% end %></span>
+            </div>
+            <div class="mr-3">
+              <span>フォロワー</span>
+              <span class="ml-2"><%= link_to followers_user_path(@user) do %>
+                <h6><%= @user.followed.count %></h6>
+              <% end %></span>
+            </div>
 
-
-      <!--投稿一覧-->
-      <h2 class="">投稿一覧</h2>
-
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>画像</th>
-            <th>タイトル</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @plant_diaries.each_with_index do |plant_diary, index| %>
-            <tr class="<%= index.even? ? 'bg-light' : 'bg-white' %>">
-              <td>
-                <% if plant_diary.image.attached? %>
-                  <%= image_tag plant_diary.image, class: "img-thumbnail", style: "max-width: 100px; max-height: 100px;" %>
+          </div>
+        </div>
+          <div class="col-md-4 text-right">
+            <% if current_user != @user %>
+              <div class="btn-group" role="group" aria-label="User actions">
+                <% if current_user.following?(@user) %>
+                  <%= link_to 'フォロー外す', user_relationships_path(@user.id), method: :delete, class: "btn btn-outline-danger btn-sm mr-2" %>
                 <% else %>
-                  <%= image_tag 'diary_no_image', size: "100x100", class: "img-thumbnail" %>
+                  <%= link_to 'フォローする', user_relationships_path(@user.id), method: :post, class: "btn btn-outline-success btn-sm mr-2" %>
                 <% end %>
-              </td>
-              <td><%= link_to plant_diary.title, plant_diary %></td>
-              <td>
-                <% if current_user && current_user.id == plant_diary.user_id %>
-                  <%= link_to '編集', edit_plant_diary_path(plant_diary), class: 'btn btn-primary' %>
-                  <%= link_to '削除', plant_diary, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+                <%= link_to 'メッセージ', chat_path(@user.id), class: "btn btn-outline-primary btn-sm" %>
+              </div>
+            <% end %>
 
+            <% if @user != current_user %>
+              <div class="btn-group" role="group" aria-label="Report user">
+                <% if current_user.reporter.exists?(reported_id: @user.id) %>
+                  <%= button_tag "通報済み", class: "btn btn-outline-primary btn-sm mr-2", disabled: true %>
+                <% else %>
+                  <%= link_to "ユーザーを通報", new_user_report_path(@user), class: "btn btn-outline-warning btn-sm mr-2 mt-2" %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+      </div>
+
+      <!--タブメニュー-->
+      <div class="wrap">
+        <ul id="tab-menu">
+          <li><a href="#tab1" class="active">プロフィール</a></li>
+          <li><a href="#tab2" class="">育成記録</a></li>
+          <li><a href="#tab3" class="">おきにいり</a></li>
+          <li><a href="#tab4" class="">コミュニティ</a></li>
+        </ul>
+
+        <div id="tab-contents">
+          <div id="tab1" class="tab">
+            <div class="user-info pt-3">
+              <%= image_tag @user.resize_profile_image(100, 100, 'fill'), class: "rounded-circle" %>
+              <p>ユーザー名: <%= @user.name %></p>
+              <p>メールアドレス: <%= @user.email %></p>
+              <p>自己紹介: <%= @user.introduction %></p>
+            </div>
+          </div>
+
+          <div id="tab2" class="tab">
+            <%= render 'public/plant_diaries/index' %>
+          </div>
+
+          <div id="tab3" class="tab">
+            <%= render 'public/users/favorites' %>
+          </div>
+
+          <div id="tab4" class="tab">
+            <%= render 'public/users/communities' %>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>

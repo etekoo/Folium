@@ -1,15 +1,23 @@
 class Admin::UsersController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_user, only: [:show, :edit, :update, :withdraw]
-  
-  
+
+
 
   def index
     @users = User.all
   end
 
   def show
-    unless @user
+    begin
+      @user = User.find(params[:id])
+      @plant_diaries = @user.plant_diaries
+      @favorites = @user.favorites
+      @communities = @user.communities
+      @following_users = @user.following_user
+      @follower_users = @user.follower_user
+      redirect_to mypage_users_path if current_user == @user
+    rescue ActiveRecord::RecordNotFound
       flash[:alert] = '指定されたユーザーが見つかりません。'
       redirect_to root_path
     end
@@ -24,7 +32,7 @@ class Admin::UsersController < ApplicationController
     else
       flash[:alert] = 'ユーザーのステータスの更新に失敗しました。'
     end
-    redirect_to admin_user_path(@user)
+    redirect_to admin_users_path
   end
 
   private

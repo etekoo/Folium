@@ -1,11 +1,13 @@
 class Public::UsersController < ApplicationController
-  before_action :set_user, only: [:mypage, :edit, :update, :withdraw]
+  before_action :set_user, only: [:mypage, :edit, :update, :withdraw,]
   before_action :authenticate_user!, except: [:show] # ログインしているかどうかを確認
   before_action :ensure_current_user, only: [:edit, :update, :destroy]
   before_action :ensure_guest_user, only: [:edit]
 
   def mypage
     @plant_diaries = @user.plant_diaries
+    @favorites = @user.favorites
+    @communities = @user.communities
   end
 
   def edit
@@ -15,6 +17,10 @@ class Public::UsersController < ApplicationController
     begin
       @user = User.find(params[:id])
       @plant_diaries = @user.plant_diaries
+      @favorites = @user.favorites
+      @communities = @user.communities
+      @following_users = @user.following_user
+      @follower_users = @user.follower_user
       redirect_to mypage_users_path if current_user == @user
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = '指定されたユーザーが見つかりません。'
@@ -41,6 +47,30 @@ class Public::UsersController < ApplicationController
     reset_session
     flash[:notice] = '退会手続きが完了しました。ご利用ありがとうございました。'
     redirect_to root_path
+  end
+
+  # フォロー機能
+  def follows
+    @user = User.find(params[:id])
+    @users = @user.following_user.page(params[:page]).per(3).reverse_order
+    @following = @user.following_user
+
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @users = @user.follower_user.page(params[:page]).per(3).reverse_order
+    @followers = @user.follower_user
+  end
+
+  def favorites
+    @user = User.find(params[:id])
+    @favorites = @user.favorites # お気に入りの取得
+  end
+
+  def communities
+    @user = current_user # ログインしているユーザーを取得するためのメソッド
+    @communities = @user.communities
   end
 
   private

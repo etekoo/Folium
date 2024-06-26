@@ -1,0 +1,53 @@
+<div class="container pt-5">
+  <!--左サイドメニュー-->
+  <div class="row justify-content-center">
+    <div class="col-md-2 pl-0 pr-0">
+      <%= render 'public/plant_diaries/sidebar' %>
+    </div>
+　 <!--右メイン部分-->
+    <div class="col-md-8 offset-md-1">
+      <h2 class="border-bottom">Chat</h2>
+      <%= form_with model: @chat, html: { class: "form-inline" } do |f| %>
+        <div class="form-group mb-2 mr-2">
+          <%= f.text_field :message, class: "form-control", placeholder: "メッセージを入力してください" %>
+        </div>
+        <%= f.hidden_field :room_id %>
+        <%= f.submit "送信", class: "btn btn-primary mb-2" %>
+      <% end %>
+
+      <!-- 参加中のユーザーを表示 -->
+      <div class="participants-section mt-4">
+        <h5>参加中のユーザー</h5>
+        <div class="d-flex flex-wrap">
+          <% @room.users.each do |user| %>
+            <div class="participant-user mr-3 text-center mb-3">
+              <%= link_to user_path(user), class: "d-inline-block" do %>
+                <%= image_tag user.resize_profile_image(50, 50, 'fill'), class: "rounded-circle", width: "50", height: "50" %><br>
+                <small><%= user.name %></small>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- チャットセクション -->
+      <div class="chat-section mt-4">
+        <% @chats.each do |chat| %>
+          <div class="chat-message border p-3 mb-3 d-flex">
+            <div class="chat-user mr-3 text-center">
+              <%= link_to user_path(chat.user), class: "d-inline-block" do %>
+                <%= image_tag chat.user.resize_profile_image(50, 50, 'fill'), class: "rounded-circle", width: "50", height: "50" %>
+              <% end %>
+            </div>
+            <div class="chat-content">
+              <small>
+                <%= link_to chat.user.name, user_path(chat.user) %>
+              </small>
+              <p><%= chat.message %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

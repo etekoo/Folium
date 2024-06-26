@@ -1,15 +1,11 @@
+<div class="container pt-5">
+  <div class="row justify-content-center">
 
-<div class='container px-5 px-sm-0'>
-<h1>Public::Communities#show</h1>
-<p>Find me in app/views/public/communities/show.html.erb</p>
+    <div class="col-md-2 pl-0 pr-0 ">
+      <%= render 'public/plant_diaries/sidebar' %>
+    </div>
 
-
-  <div class='row'>
-    <div class='col'>
-      <h2>User info</h2>
-      <%#= render 'users/info', user: current_user %>
-
-    <div class='col-md-8'>
+    <div class='col-md-8 offset-md-1'>
       <h2>Community Detail</h2>
       <table class="table">
         <thead>
@@ -31,18 +27,22 @@
             </tr>
         </tbody>
       </table>
+        <div class="row">
+          <div class='col-md-8'>
+          <% if user_signed_in? %>
+            <% if @community.communitymembers.exists?(user_id: current_user.id) %>
+              <%= link_to "脱退する", community_communitymember_path(@community), method: :delete, class: "btn btn-sm btn-success" %>
+              <% else %>
+              <%= link_to "参加する",community_communitymembers_path(@community), method: :post, class: "btn btn-sm btn-success" %>
+            <% end %>
+          <% end %>
+          <h2 class="pt-4">コミュニティユーザー</h2>
+          <% @community.communitymembers.each do |member| %>
+          <p><%= member.user.name %></p>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<% if user_signed_in? %>
-  <% if @community.communitymembers.exists?(user_id: current_user.id) %>
-    <%= link_to "脱退する", community_communitymember_path(@community), method: :delete %>
-  <% else %>
-    <%= link_to "参加する",community_communitymembers_path(@community), method: :post %>
-  <% end %>
-<% end %>
-<h2>コミュニティユーザー</h2>
-<% @community.communitymembers.each do |member| %>
-  <p><%= member.user.name %></p>
-<% end %>

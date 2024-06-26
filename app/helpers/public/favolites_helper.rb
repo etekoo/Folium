@@ -1,0 +1,2 @@
+module Public::FavolitesHelper
+end

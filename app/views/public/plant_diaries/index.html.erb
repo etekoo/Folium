@@ -1,42 +1,57 @@
-<div class="container">
-  <div class="row pt-5 justify-content-center">
+<div class="container pt-5">
+  <div class="row justify-content-center">
 
-    <div class="col-md-2 border">
+    <div class="col-md-2 pl-0 pr-0 ">
       <%= render 'public/plant_diaries/sidebar' %>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-8 offset-md-1">
 
-      <h1 class="border-bottom">Plant Diaries</h1>
+      <h2 class="border-bottom">Plant Diaries</h2>
 
-      <%= link_to '新規投稿', new_plant_diary_path, class: "btn btn-success mb-3" %>
 
-      <table class="table table-striped">
+      <h3>タグ一覧</h3>
+      <div class="tags-list">
+        <% @tags.each do |tag| %>
+          <span class="badge"><i class="fa-sharp fa-solid fa-tag"></i><%= link_to tag.name, search_tag_path(tag_id: tag.id) %></span>
+        <% end %>
+      </div>
+
+      <table class="table pt-5 table-striped post-list-table" border="0">
         <thead>
           <tr>
-            <th>Image</th>
-            <th>Title</th>
-            <th colspan="2">Actions</th>
-            <th></th>
+            <th class="col-2">Image</th>
+            <th class="col-details">Details</th>
           </tr>
         </thead>
-
         <tbody>
           <% @plant_diaries.each do |plant_diary| %>
-            <tr>
+            <tr class="post-item border-bottom">
+              <td><%= image_tag plant_diary.resize_diary_image(100, 100, 'fill'), class: "img-thumbnail" %></td>
               <td>
-               <%= image_tag plant_diary.resize_diary_image(100, 100, 'fill'), class: "img-thumbnail" %>
+                <div class="d-flex flex-column">
+                  <div class=" mb-2">
+                    <span class="post-date"><%= plant_diary.created_at.strftime("%Y-%m-%d") %></span>
+                  </div>
+                  <p class="post-title"><%= link_to truncate(plant_diary.title, length: 20), plant_diary %></p>
+                  <p class="post-content"><%= truncate(plant_diary.content, length: 60) %></p>
+                  <div class="d-flex justify-content-between align-items-end">
+                    <span class="comment-count mr-2"><i class="fa-regular fa-comment-dots"></i><%= plant_diary.comments.count %></span>
+                    <div id="favorite_btn_<%= plant_diary.id %>"><%= render 'public/favorites/favorite', plant_diary: plant_diary %></div>
+                    <%= link_to plant_diary.user.name, user_path(plant_diary.user), class: "post-user ml-auto" %>
+                  </div>
+                  <div class="tags mt-2">
+                    <% plant_diary.tags.each do |tag| %>
+                      <span class="badge"><i class="fa-sharp fa-solid fa-tag"></i> <%= link_to tag.name, search_path(tag_id: tag.id) %></span>
+                    <% end %>
+                  </div>
+                </div>
               </td>
-
-              <td><%= plant_diary.title %></td>
-
-              <td><%= link_to 'Show', plant_diary, class: "btn btn-info btn-sm" %></td>
-              <td><%= render 'favorites/favorite', plant_diary: plant_diary %></td>
-
             </tr>
           <% end %>
         </tbody>
       </table>
+
     </div>
   </div>
 </div>

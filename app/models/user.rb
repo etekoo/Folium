@@ -13,7 +13,43 @@ class User < ApplicationRecord
   has_many :plant_diaries, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :communitymembers, dependent: :destroy
+  has_many :communities, through: :communitymembers
+  # いいね機能
   has_many :favorites, dependent: :destroy
+  has_many :favorited_plant_diaries, through: :favorites, source: :plant_diary
+  # フォロー機能
+  has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy # ① フォローしている人の取得
+  has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy # ② フォローされているの人取得
+  has_many :following_user, through: :follower, source: :followed # 自分がフォローしている人
+  has_many :follower_user, through: :followed, source: :follower # 自分をフォローしている人
+  # チャット機能
+  has_many :user_rooms
+  has_many :chats
+  has_many :rooms, through: :user_rooms
+  # 通知
+  has_many :notifications, dependent: :destroy
+  # 問い合わせ機能
+  has_many :contacts, dependent: :destroy
+  # 通報機能
+  has_many :reporter, class_name: "Report", foreign_key: "reporter_id", dependent: :destroy
+  has_many :reported, class_name: "Report", foreign_key: "reported_id", dependent: :destroy
+  # 報告数
+  has_many :reports_received, foreign_key: :reported_id, class_name: "Report"
+
+
+  # ユーザーをフォローする
+  def follow(user_id)
+    follower.create(followed_id: user_id)
+  end
+  # ユーザーのフォローを外す
+  def unfollow(user_id)
+    follower.find_by(followed_id: user_id).destroy
+  end
+  # フォローしていればtrueを返す
+  def following?(user)
+    following_user.include?(user)
+  end
+
 
   # 画像をリサイズして取得する
   def resize_profile_image(width, height, mode)
@@ -52,19 +88,17 @@ class User < ApplicationRecord
   end
 
 # 検索方法分岐
-  def self.looks(search, word)
-    if search == "perfect_match"
-      @user = User.where("name LIKE?", "#{word}")
-    elsif search == "forward_match"
-      @user = User.where("name LIKE?","#{word}%")
-    elsif search == "backward_match"
-      @user = User.where("name LIKE?","%#{word}")
-    elsif search == "partial_match"
-      @user = User.where("name LIKE?","%#{word}%")
-    else
-      @user = User.all
-    end
+  def self.looks(word)
+    where("name LIKE ?", "%#{word}%")
   end
 
+  def timeline_plant_diaries
+    follower_user_ids = self.follower.pluck(:id)
+    PlantDiary.where(user_id: follower_user_ids + [self.id])
+  end
+  # 報告数
+  def report_count
+    reports_received.count
+  end
 
 end

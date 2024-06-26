@@ -5,22 +5,12 @@
         <div class="card-header">
           <h2><%= @plant_diary.title %></h2>
         </div>
-        <div class="card-body"><%= image_tag @plant_diary.resize_diary_image(100, 100, 'fill'), class: "img-thumbnail" %>
-        </div>  
+        <div class="card-body">
+          <%= image_tag @plant_diary.resize_diary_image(300, 300, 'fit'), class: "img-thumbnail" %>
+        </div>
         <div class="card-body">
           <p><strong>Content:</strong></p>
           <p><%= @plant_diary.content %></p>
-
-          <hr>
-           
-          <div class="d-flex align-items-center">
-            <%= image_tag(@plant_diary.user.resize_profile_image(100, 100, 'fill'), class: "rounded-circle", width: "50", height: "50") %>
-            <div class="ml-3">
-              <p><strong>Posted by:</strong> <%= link_to @plant_diary.user.name, user_path(@plant_diary.user) %></p>
-            </div>
-          </div>
-
-          <hr>
 
           <% if current_user && current_user.id == @plant_diary.user.id %>
             <%= link_to 'Edit', edit_plant_diary_path(@plant_diary), class: 'btn btn-primary' %>
@@ -39,9 +29,22 @@
     </div>
 
     <div class="col-md-3 border">
+      <div class="d-flex align-items-center pt-3">
+        <%= image_tag(@plant_diary.user.resize_profile_image(100, 100, 'fill'), class: "rounded-circle", width: "50", height: "50") %>
+        <div class="ml-3">
+          <p><strong>Posted by:</strong> <%= link_to @plant_diary.user.name, user_path(@plant_diary.user) %></p>
+        </div>
+      </div>
+
+      <div class="row justify-content-center mt-3">
+      <% @plant_diary.tags.each do |tag| %>
+        <div class="col text-center mx-2">
+          <i class="fas fa-tag"></i>
+          <%= link_to tag.name, search_path(tag_id: tag.id) %>
+        </div>
+      <% end %>
+      </div>
     </div>
 
   </div>
 </div>
-
-

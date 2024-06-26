@@ -6,7 +6,7 @@ class Admin::PlantDiariesController < ApplicationController
 
 
   def index
-     @plant_diaries = PlantDiary.includes(:user).where(users: { is_active: true })
+    @plant_diaries = PlantDiary.all
   end
 
   def show

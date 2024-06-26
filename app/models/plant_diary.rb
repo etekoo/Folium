@@ -7,6 +7,8 @@ class PlantDiary < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorited_users, through: :favorites, source: :user
+  has_many :plant_diary_tags, dependent: :destroy
+  has_many :tags, through: :plant_diary_tags
 
   # 画像をリサイズして取得する
   def resize_diary_image(width, height, mode)
@@ -19,30 +21,55 @@ class PlantDiary < ApplicationRecord
       image.variant(resize_to_fit: [width, height]).processed
     elsif mode == 'fill'
       image.variant(resize_to_fill: [width, height]).processed
-  # デフォルトのリサイズ方法を指定
     else
       image.variant(resize_to_fill: [800, 800]).processed
     end
   end
 
-
   # 検索方法分岐
-  def self.looks(search, word)
-    if search == "perfect_match"
-      @plant_diaries = PlantDiary.where("title LIKE?","#{word}")
-    elsif search == "forward_match"
-      @plant_diaries = PlantDiary.where("title LIKE?","#{word}%")
-    elsif search == "backward_match"
-      @plant_diaries = PlantDiary.where("title LIKE?","%#{word}")
-    elsif search == "partial_match"
-      @plant_diaries = PlantDiary.where("title LIKE?","%#{word}%")
-    else
-      @plant_diaries = PlantDiary.all
-    end
+  def self.looks(word)
+    where("title LIKE ?", "%#{word}%")
   end
-  
+
   def favorited_by?(user)
     favorited_users.exists?(user.id)
   end
 
+  # タグ機能
+  def save_plan_tags(tags)
+    current_tags = self.tags.pluck(:name)
+    current_tags ||= []
+
+    tags.each do |tag_name|
+      tag = Tag.find_or_create_by(name: tag_name.strip)
+      self.tags << tag unless self.tags.include?(tag)
+    end
+
+    tags_to_delete = current_tags - tags
+    self.tags.where(name: tags_to_delete).destroy_all
+  end
+
+  # 通知機能
+  after_create_commit :notify_followers
+
+  private
+
+  def notify_followers
+    follower_ids = user.follower.pluck(:id)
+    if follower_ids.any?
+      notifications = follower_ids.map do |follower_id|
+        {
+          subject_type: 'Plant_diary',
+          subject_id: self.id,
+          user_id: follower_id,
+          action_type: 'new_plant_diary',
+          created_at: Time.current,
+          updated_at: Time.current
+        }
+      end
+
+      Notification.insert_all(notifications)
+    end
+  end
 end
+

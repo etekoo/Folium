@@ -1,0 +1,16 @@
+<div class="user-detail">
+  <% if @user.image.attached? %>
+    <%= image_tag @user.image.variant(resize: "150x150"), class: "profile-image" %>
+  <% else %>
+    <%= image_tag "default-image.png", class: "profile-image" %>
+  <% end %>
+  <div class="user-info">
+    <h2><%= @user.name %></h2>
+    <p>Email: <%= @user.email %></p>
+    <p>Status: <%= @user.is_active ? "Active" : "Inactive" %></p>
+    <div class="user-introduction">
+      <h3>自己紹介</h3>
+      <%= @user.introduction %>
+    </div>
+  </div>
+</div>
