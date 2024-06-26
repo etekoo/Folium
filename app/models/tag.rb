@@ -21,4 +21,9 @@ class Tag < ApplicationRecord
       self.plant_diaries << new_post_tag
     end
   end
+  
+  def post_count
+    plant_diaries.count
+  end
+  
 end

@@ -22,13 +22,12 @@ Rails.application.routes.draw do
 
   root 'public/homes#top'                                     # TOPページ
 
-  get 'plant_diaries/search_tag/:tag_id', to: 'public/plant_diaries#search_tag', as: 'search_tag'
-
 
   scope module: :public do
-    get 'search' => 'searches#search'
+    get 'search', to: 'searches#search', as: 'search'
     get 'homes/about'
     get 'chat/:id' => 'chats#show', as: 'chat'
+    get "search_tag" => "plant_diaries#search_tag"
     resources :chats, only: [:create]
     resources :notifications, only: [:index, :destroy]
     resources :contacts, only: [:new, :create, :show, :index]
@@ -38,9 +37,10 @@ Rails.application.routes.draw do
 
     resources :plant_diaries do                                 # プラントダイアリー関連
       get 'timeline', on: :collection
+      get "search_tag" => "plans#search_tag"
       resource :favorite, only: [:create, :destroy]
       resources :comments, only: [:create, :destroy]            # コメント関連
-      get "search_tag" => "plant_diaries#search_tag"
+
     end
 
     resources :users, only: [:show, :edit, :update] do
@@ -61,6 +61,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'search' => 'searches#search'
+    resources :tags, only: [:index, :destroy]
     resources :communities, only: [:index, :show, :destroy]   # 管理者用コミュニティ関連ra
     resources :plant_diaries, only: [:index, :show, :destroy] do
      resources :comments, only: [:destroy]
