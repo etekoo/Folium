@@ -1,13 +1,32 @@
-<% @plant_diaries.each do |plant_diary| %>
-  <tr>
-    <td>
-      <%= image_tag plant_diary.resize_diary_image(50, 50, 'fill'), class: "img-thumbnail" %>
-    </td>
-    <td><%= plant_diary.title %></td>
-    <td><%= link_to plant_diary.user.name, "#" %></td>
-    <td><%= plant_diary.comments.count %></td>
-    <td><%= plant_diary.favorites.count %></td>
-    <td><%= link_to 'Show', admin_plant_diary_path(plant_diary), class: "btn btn-info btn-sm" %></td>
-    <td><%= link_to 'Delete', admin_plant_diary_path(plant_diary), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %></td>
-  </tr>
-<% end %>
+<div class="container-fluid pt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="">Plant Diaries</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>タイトル</th>
+            <th>投稿者</th>
+            <th>コメント数</th>
+            <th>お気に入り数</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @plant_diaries.each do |plant_diary| %>
+            <tr>
+              <td><%= image_tag plant_diary.resize_diary_image(50, 50, 'fill'), class: "img-thumbnail" %></td>
+              <td><%= link_to plant_diary.title, admin_plant_diary_path(plant_diary) %></td>
+              <td><%= link_to plant_diary.user.name, admin_user_path(plant_diary.user) %></td>
+              <td><%= plant_diary.comments.count %></td>
+              <td><%= plant_diary.favorites.count %></td>
+              <td><%= link_to '削除', admin_plant_diary_path(plant_diary), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger btn-sm" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

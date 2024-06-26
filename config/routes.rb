@@ -22,13 +22,14 @@ Rails.application.routes.draw do
 
   root 'public/homes#top'                                     # TOPページ
 
-  get 'chat/:id' => 'chats#show', as: 'chat'
-  resources :chats, only: [:create]
+  get 'plant_diaries/search_tag/:tag_id', to: 'public/plant_diaries#search_tag', as: 'search_tag'
 
 
   scope module: :public do
     get 'search' => 'searches#search'
     get 'homes/about'
+    get 'chat/:id' => 'chats#show', as: 'chat'
+    resources :chats, only: [:create]
     resources :notifications, only: [:index, :destroy]
     resources :contacts, only: [:new, :create, :show, :index]
     resources :communities do
@@ -39,6 +40,7 @@ Rails.application.routes.draw do
       get 'timeline', on: :collection
       resource :favorite, only: [:create, :destroy]
       resources :comments, only: [:create, :destroy]            # コメント関連
+      get "search_tag" => "plant_diaries#search_tag"
     end
 
     resources :users, only: [:show, :edit, :update] do

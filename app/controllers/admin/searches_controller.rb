@@ -1,16 +1,17 @@
 class Admin::SearchesController < ApplicationController
-  
+
   def search
     @word = params[:word]
     @range = params[:range]
 
-    if @range == "ユーザー"
+    case @range
+    when "ユーザー"
       @users = User.looks(@word)
-    elsif @range == "書籍"
-      @books = Book.looks(@word)
-    elsif @range == "日記"
+    when "コミュニティ"
+      @communities = Community.looks(@word)
+    when "育成記録"
       @plant_diaries = PlantDiary.looks(@word)
+    else
     end
   end
-  
 end

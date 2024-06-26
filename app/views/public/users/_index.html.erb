@@ -1,18 +1,27 @@
-<!-- app/views/users/_index.html.erb -->
-<h2>Users List</h2>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% users.each do |user| %>
-      <tr>
-        <td><%= user.id %></td>
-        <td><%= user.name %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container pt-5">
+  <div class="row justify-content-center">
+    <div class="col">
+      <h2>Users List</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>名前</th>
+            <th>自己紹介</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.each do |user| %>
+            <tr>
+              <td>
+                  <%= image_tag user.resize_profile_image(30, 30, 'fit') %>
+              </td>
+              <td><%= link_to user.name, user_path(user) %></td>
+              <td><%= user.introduction %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

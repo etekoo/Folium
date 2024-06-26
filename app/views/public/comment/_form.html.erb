@@ -1,4 +1,8 @@
 <%= form_with(model: [plant_diary, comment], local: true) do |f| %>
-  <%= f.text_area :content, rows: '5', placeholder: "コメントをここに", class: "w-100" %>
-  <%= f.submit "送信" %>
+  <div class="form-group">
+    <%= f.text_area :content, rows: '3', placeholder: "コメントをここに", class: "form-control" %>
+  </div>
+  <div class="form-group text-right">
+    <%= f.submit "送信", class: "btn btn-primary" %>
+  </div>
 <% end %>

@@ -6,9 +6,10 @@ class Public::SearchesController < ApplicationController
 
     if @range == "ユーザー"
       @users = User.looks(@word)
-    elsif @range == "書籍"
-      @books = Book.looks(@word)
-    elsif @range == "日記"
+    elsif @range == "コミュニティ"
+      @communities = Community.looks(@word)
+    elsif @range == "育成記録"
+      @tag = Tag.find(params[:tag_id])
       @plant_diaries = PlantDiary.looks(@word)
     end
   end

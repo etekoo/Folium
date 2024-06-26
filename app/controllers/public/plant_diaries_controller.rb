@@ -69,7 +69,7 @@ class Public::PlantDiariesController < ApplicationController
   def search_tag
     @tag_list = Tag.all
     @tag = Tag.find(params[:tag_id])
-    @plant_diaries = @tag.plant_diaries
+    @plant_diaries = @tag.plant_diaries.includes(:user, :tags).where(users: { is_active: true })
   end
 
   def timeline
@@ -80,7 +80,7 @@ class Public::PlantDiariesController < ApplicationController
     else
       @followed_plant_diaries = []
     end
-    @tags = Tag.all  
+    @tags = Tag.all
   end
 
   private

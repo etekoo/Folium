@@ -27,8 +27,20 @@ class PlantDiary < ApplicationRecord
   end
 
   # 検索方法分岐
-  def self.looks(word)
-    where("title LIKE ?", "%#{word}%")
+  def self.looks(words)
+    query = joins(:tags).where(users: { is_active: true }) # 退会ユーザーの投稿を除く
+
+    # ,で区切った複数の文字列を検索
+    if words.present?
+      conditions = []
+      words.split(',').each do |word|
+        word.strip!
+        conditions << "(plant_diaries.title LIKE '%#{word}%' OR plant_diaries.content LIKE '%#{word}%' OR tags.name LIKE '%#{word}%')"
+      end
+      query = query.where(conditions.join(" AND "))
+    end
+
+    query.distinct
   end
 
   def favorited_by?(user)
@@ -49,17 +61,17 @@ class PlantDiary < ApplicationRecord
     self.tags.where(name: tags_to_delete).destroy_all
   end
 
-    # 通知機能
+  # 通知機能
   after_create_commit :notify_followers
 
   private
 
   def notify_followers
-    follower_ids = user.follower.pluck(:id)
+    follower_ids = user.followers.pluck(:id)
     if follower_ids.any?
       notifications = follower_ids.map do |follower_id|
         {
-          subject_type: 'Plant_diary',
+          subject_type: 'PlantDiary',
           subject_id: self.id,
           user_id: follower_id,
           action_type: 'new_plant_diary',
@@ -72,4 +84,3 @@ class PlantDiary < ApplicationRecord
     end
   end
 end
-

@@ -44,25 +44,6 @@ document.addEventListener('turbolinks:load', () => {
 
 });
 
-// 管理者側ユーザー一覧表示用
-document.addEventListener('turbolinks:load', function() {
-  const userRows = document.querySelectorAll('.user-row');
-
-  userRows.forEach(row => {
-    row.addEventListener('click', function() {
-      const userId = this.dataset.userId;
-
-      fetch(`/admin/users/${userId}`)
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('user-detail').innerHTML = data;
-        })
-        .catch(error => {
-          console.error('Error fetching user details:', error);
-        });
-    });
-  });
-});
 
 // タブメニューの記述
 $(document).on('turbolinks:load', function() {

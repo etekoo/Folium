@@ -1,6 +1,25 @@
-<h1>フォロワーリスト</h1>
-<ul>
-  <% @followers.each do |follower| %>
-    <li><%= follower.name %></li>
-  <% end %>
-</ul>
+<div class="container pt-5">
+  <div class="row justify-content-center">
+    <div class="col">
+      <h3>フォロワーリスト</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>名前</th>
+            <th>自己紹介</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @followers.each do |follower| %>
+            <tr>
+              <td><%= image_tag follower.resize_profile_image(30, 30, 'fit') %></td>
+              <td><%= link_to follower.name, user_path(follower) %></td>
+              <td><%= follower.introduction %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
