@@ -1,7 +1,10 @@
 <% if @range == 'ユーザー' %>
-  <h3>Users search for "<%= @word %>"</h3>
+  <h3>ユーザー検索結果 "<%= @word %>"</h3>
   <%= render 'public/users/index', users: @users %>
-<% elsif @range == '日記' %>
-  <h3>Plant Diaries search for "<%= @word %>"</h3>
+<% elsif @range == '育成記録' %>
+  <h3>育成記録検索結果 "<%= @word %>"</h3>
   <%= render 'public/plant_diaries/index', plant_diaries: @plant_diaries %>
+<% elsif @range == 'コミュニティ' %>
+  <h3>コミュニティ検索結果 "<%= @word %>"</h3>
+  <%= render 'public/communities/index', communities: @communities %>
 <% end %>

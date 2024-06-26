@@ -1,7 +1,7 @@
 <div class="container pt-5">
   <div class="row justify-content-center">
     <div class="col">
-      <h2>Users List</h2>
+      <h3>フォローしているユーザー一覧</h3>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -11,13 +11,11 @@
           </tr>
         </thead>
         <tbody>
-          <% users.each do |user| %>
+          <% @following.each do |followed| %>
             <tr>
-              <td>
-                  <%= image_tag user.resize_profile_image(30, 30, 'fit') %>
-              </td>
-              <td><%= link_to user.name, user_path(user) %></td>
-              <td><%= user.introduction %></td>
+              <td><%= image_tag followed.resize_profile_image(30, 30, 'fit') %></td>
+              <td><%= link_to followed.name, user_path(followed) %></td>
+              <td><%= followed.introduction %></td>
             </tr>
           <% end %>
         </tbody>

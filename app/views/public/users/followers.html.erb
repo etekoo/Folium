@@ -1,7 +1,7 @@
 <div class="container pt-5">
   <div class="row justify-content-center">
     <div class="col">
-      <h2>Users List</h2>
+      <h3>フォロワーリスト</h3>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -11,13 +11,11 @@
           </tr>
         </thead>
         <tbody>
-          <% users.each do |user| %>
+          <% @followers.each do |follower| %>
             <tr>
-              <td>
-                  <%= image_tag user.resize_profile_image(30, 30, 'fit') %>
-              </td>
-              <td><%= link_to user.name, user_path(user) %></td>
-              <td><%= user.introduction %></td>
+              <td><%= image_tag follower.resize_profile_image(30, 30, 'fit') %></td>
+              <td><%= link_to follower.name, user_path(follower) %></td>
+              <td><%= follower.introduction %></td>
             </tr>
           <% end %>
         </tbody>

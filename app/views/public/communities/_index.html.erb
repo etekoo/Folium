@@ -1,24 +1,30 @@
-<table class="table table-hover table-inverse">
-  <thead>
-    <tr>
-      <th></th>
-      <th>コミュニティ名</th>
-      <th>紹介文</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% communities.each do |community| %>
-      <tr>
-        <td><%= image_tag community.get_image, size:"70x70" %></td>
-        <td><%= link_to community.name, community_path(community) %></td>
-        <td><%= community.introduction %></td>
-        <% if community.owner_id == current_user.id %>
-          <td>
-            <%= link_to 'Edit', edit_community_path(community), class: "btn btn-sm btn-success" %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container pt-5">
+  <div class="row justify-content-center">
+    <div class="col">
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th></th>
+            <th>コミュニティ名</th>
+            <th>紹介文</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% communities.each do |community| %>
+            <tr>
+              <td><%= image_tag community.get_image, size:"30x30" %></td>
+              <td><%= link_to community.name, community_path(community) %></td>
+              <td><%= community.introduction %></td>
+              <% if community.owner_id == current_user.id %>
+                <td>
+                  <%= link_to 'Edit', edit_community_path(community), class: "btn btn-sm btn-success" %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

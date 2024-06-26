@@ -1,20 +1,22 @@
-<table class="table">
-  <tbody>
-    <% plant_diary.comments.each do |comment| %>
-      <tr>
-        <td>
-          <%= link_to user_path(comment.user), class: "d-inline-block text-center" do %>
-            <%= image_tag comment.user.resize_profile_image(100, 100, 'fill'), class: "rounded-circle", width: "30", height: "30" %><br>
-            <%= comment.user.name %>
+<div class="comments-section">
+  <% plant_diary.comments.each do |comment| %>
+    <div class="comment border p-3 mb-3">
+      <div class="comment-header d-flex align-items-center mb-2">
+        <div class="comment-user mr-3 text-center">
+          <%= link_to user_path(comment.user), class: "d-inline-block" do %>
+            <%= image_tag comment.user.resize_profile_image(50, 50, 'fill'), class: "rounded-circle", width: "30", height: "30" %><br>
+            <small><%= comment.user.name %></small>
           <% end %>
-        </td>
-        <td><%= comment.content %></td>
-        <td>
-          <% if comment.user == current_user %>
-            <%= link_to "Destroy", plant_diary_comment_path(plant_diary, comment), method: :delete, class: "btn btn-danger float-right" %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </div>
+        <div class="comment-content">
+          <p><%= comment.content %></p>
+        </div>
+      </div>
+      <% if comment.user == current_user %>
+        <div class="text-right">
+          <%= link_to "削除", plant_diary_comment_path(plant_diary, comment), method: :delete, class: "btn btn-danger btn-sm" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

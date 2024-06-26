@@ -1,6 +1,6 @@
 <div class="container pt-5">
   <div class="row justify-content-center">
-    <div class="col-md-8 pt-5 px-5">
+    <div class="col-md-10 pt-5 px-5">
       <h1 class="border-bottom">管理者用ユーザー詳細ページ</h1>
       <div class="user-info pt-3">
         <div>
@@ -10,8 +10,87 @@
           <p>ユーザー名: <%= @user.name %></p>
           <p>メールアドレス: <%= @user.email %></p>
           <p>自己紹介: <%= @user.introduction %></p>
+          <p>報告された回数: <%= @user.report_count %></p>
         </div>
         <%= link_to '編集', edit_admin_user_path(@user), class: 'btn btn-primary' %>
+      </div>
+
+      <div class="user-details pt-5">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="plant-diaries-tab" data-toggle="tab" href="#plant-diaries" role="tab" aria-controls="plant-diaries" aria-selected="true">投稿</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="favorites-tab" data-toggle="tab" href="#favorites" role="tab" aria-controls="favorites" aria-selected="false">お気に入り</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="following-tab" data-toggle="tab" href="#following" role="tab" aria-controls="following" aria-selected="false">フォロー</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="followers-tab" data-toggle="tab" href="#followers" role="tab" aria-controls="followers" aria-selected="false">フォロワー</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="communities-tab" data-toggle="tab" href="#communities" role="tab" aria-controls="communities" aria-selected="false">参加中のコミュニティ</a>
+          </li>
+        </ul>
+        <div class="tab-content pt-3" id="myTabContent">
+          <div class="tab-pane fade show active" id="plant-diaries" role="tabpanel" aria-labelledby="plant-diaries-tab">
+            <table class="table">
+              <tbody>
+                <% @plant_diaries.each do |plant_diary| %>
+                  <tr>
+                    <td><%= link_to plant_diary.title, admin_plant_diary_path(plant_diary) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
+            <table class="table">
+              <tbody>
+                <% @favorites.each do |favorite| %>
+                  <% plant_diary = favorite.plant_diary %>
+                  <tr>
+                    <td><%= link_to plant_diary.title, admin_plant_diary_path(plant_diary) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
+            <table class="table">
+              <tbody>
+                <% @following_users.each do |following_user| %>
+                  <tr>
+                    <td><%= link_to following_user.name, admin_user_path(following_user) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
+            <table class="table">
+              <tbody>
+                <% @follower_users.each do |follower_user| %>
+                  <tr>
+                    <td><%= link_to follower_user.name, admin_user_path(follower_user) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="communities" role="tabpanel" aria-labelledby="communities-tab">
+            <table class="table">
+              <tbody>
+                <% @communities.each do |community| %>
+                  <tr>
+                    <td><%= link_to community.name, admin_community_path(community) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

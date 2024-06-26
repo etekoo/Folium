@@ -1,9 +1,16 @@
-<!--<h4><%#= @user.name %>さんの参加中のコミュニティ一覧</h4>-->
-
 <ul class="list-group">
+  <% if @communities.present? %>
   <% @communities.each do |community| %>
-    <li class="list-group-item">
-      <%= link_to community.name, community_path(community) %>
+
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <%= image_tag community.get_image, size: "70x70", class: "mr-3" %>
+        <%= link_to community.name, community_path(community) %>
+      </div>
+      <span class=""><%= community.communitymembers.count %>人</span>
     </li>
+  <% end %>
+    <% else %>
+    <li class="list-group-item">参加中のコミュニティはありません。</li>
   <% end %>
 </ul>

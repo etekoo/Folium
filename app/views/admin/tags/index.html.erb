@@ -1,0 +1,31 @@
+<div class="container-fluid pt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2>Tag List</h2>
+
+       <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>名前</th>
+            <th>投稿数</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tags.each do |tag| %>
+            <tr>
+              <td><%= tag.id %></td>
+              <td><%= tag.name %></td>
+              <td><%= tag.plant_diaries.count %></td>
+              <td>
+                <%= link_to '削除', admin_tag_path(tag), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

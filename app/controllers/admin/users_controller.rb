@@ -9,8 +9,15 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    render partial: 'admin/users/detail', locals: { user: @user }
-    unless @user
+    begin
+      @user = User.find(params[:id])
+      @plant_diaries = @user.plant_diaries
+      @favorites = @user.favorites
+      @communities = @user.communities
+      @following_users = @user.following_user
+      @follower_users = @user.follower_user
+      redirect_to mypage_users_path if current_user == @user
+    rescue ActiveRecord::RecordNotFound
       flash[:alert] = '指定されたユーザーが見つかりません。'
       redirect_to root_path
     end

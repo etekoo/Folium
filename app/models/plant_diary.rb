@@ -49,13 +49,13 @@ class PlantDiary < ApplicationRecord
     self.tags.where(name: tags_to_delete).destroy_all
   end
 
-    # 通知機能
+  # 通知機能
   after_create_commit :notify_followers
 
   private
 
   def notify_followers
-    follower_ids = user.followers.pluck(:id)
+    follower_ids = user.follower.pluck(:id)
     if follower_ids.any?
       notifications = follower_ids.map do |follower_id|
         {

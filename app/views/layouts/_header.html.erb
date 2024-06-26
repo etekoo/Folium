@@ -16,6 +16,7 @@
 
           <!-- ユーザーログイン -->
           <% elsif user_signed_in? %>
+            <li class="nav-item"><%= link_to '通知一覧', notifications_path, class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to 'マイページ', mypage_users_path, class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
 
@@ -47,6 +48,7 @@
             <li class="nav-item"><%= link_to 'コミュニティ一覧', admin_communities_path, class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to 'ユーザー一覧', admin_users_path, class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to '育成記録一覧', admin_plant_diaries_path, class: 'nav-link' %></li>
+            <li class="nav-item"><%= link_to 'タグ一覧', admin_tags_path, class: 'nav-link' %></li>
 
           <!-- ユーザーログイン -->
           <% elsif user_signed_in? %>

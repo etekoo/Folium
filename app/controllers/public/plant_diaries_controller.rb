@@ -23,14 +23,6 @@ class Public::PlantDiariesController < ApplicationController
     @plant_diary = PlantDiary.new(plant_diary_params)
     tag_list = params[:plant_diary][:tags].split(',') if params[:plant_diary][:tags]
 
-    if current_user.nil?
-      Rails.logger.debug("current_user is nil")
-      flash[:alert] = 'ユーザーがログインしていません。'
-      redirect_to new_user_session_path and return
-    else
-      Rails.logger.debug("current_user is present: #{current_user.id}")
-    end
-
     @plant_diary.user_id = current_user.id
 
     if @plant_diary.save
@@ -67,9 +59,10 @@ class Public::PlantDiariesController < ApplicationController
   end
 
   def search_tag
-    @tag_list = Tag.all
     @tag = Tag.find(params[:tag_id])
-    @plant_diaries = @tag.plant_diaries
+    @plant_diaries = @tag.plant_diaries.includes(:user, :tags).where(users: { is_active: true })
+    @tags = Tag.all
+    render 'public/plant_diaries/search_tag'
   end
 
   private
@@ -91,10 +84,6 @@ class Public::PlantDiariesController < ApplicationController
       flash[:alert] = "編集または削除する権限がありません"
       redirect_to plant_diaries_path
     end
-  end
-
-  def favorited_by?(user)
-    favorites.exists?(user_id: user.id)
   end
 
   def plant_diary_params

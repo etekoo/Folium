@@ -1,22 +1,11 @@
 <div class="container pt-5">
   <div class="row justify-content-center">
-
     <div class="col-md-2 pl-0 pr-0 ">
       <%= render 'public/plant_diaries/sidebar' %>
     </div>
-
     <div class="col-md-8 offset-md-1">
-
       <h2 class="border-bottom">Plant Diaries</h2>
-
-
-      <h3>タグ一覧</h3>
-      <div class="tags-list">
-        <% @tags.each do |tag| %>
-          <span class="badge"><i class="fa-sharp fa-solid fa-tag"></i><%= link_to tag.name, search_tag_path(tag_id: tag.id) %></span>
-        <% end %>
-      </div>
-
+      <h3>タグ: <%= @tag.name %></h3>
       <table class="table pt-5 table-striped post-list-table" border="0">
         <thead>
           <tr>
@@ -51,7 +40,6 @@
           <% end %>
         </tbody>
       </table>
-
     </div>
   </div>
 </div>
