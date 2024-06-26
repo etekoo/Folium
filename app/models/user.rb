@@ -28,9 +28,9 @@ class User < ApplicationRecord
   has_many :rooms, through: :user_rooms
   # 通知
   has_many :notifications, dependent: :destroy
-
+  # 問い合わせ機能
   has_many :contacts, dependent: :destroy
-  
+  # 通報機能
   has_many :reporter, class_name: "Report", foreign_key: "reporter_id", dependent: :destroy
   has_many :reported, class_name: "Report", foreign_key: "reported_id", dependent: :destroy
 
@@ -88,6 +88,11 @@ class User < ApplicationRecord
 # 検索方法分岐
   def self.looks(word)
     where("name LIKE ?", "%#{word}%")
+  end
+
+  def timeline_plant_diaries
+    follower_user_ids = self.follower.pluck(:id)
+    PlantDiary.where(user_id: follower_user_ids + [self.id])
   end
 
 end

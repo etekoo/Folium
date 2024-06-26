@@ -9,12 +9,11 @@
 
       <h2 class="border-bottom">Plant Diaries</h2>
 
-      <%#= link_to '新規投稿', new_plant_diary_path, class: "btn btn-success mb-3" %>
 
-      <h2>タグ一覧</h2>
+      <h3>タグ一覧</h3>
       <div class="tags-list">
         <% @tags.each do |tag| %>
-          <span class="badge badge-info"><i class="fa-sharp fa-solid fa-tag"></i><%= link_to tag.name, search_path(tag_id: tag.id) %></span>
+          <span class="badge"><i class="fa-sharp fa-solid fa-tag"></i><%= link_to tag.name, search_path(tag_id: tag.id) %></span>
         <% end %>
       </div>
 
@@ -43,7 +42,7 @@
                   </div>
                   <div class="tags mt-2">
                     <% plant_diary.tags.each do |tag| %>
-                      <span class="badge badge-secondary"><i class="fa-sharp fa-solid fa-tag"></i> <%= link_to tag.name, search_path(tag_id: tag.id) %></span>
+                      <span class="badge"><i class="fa-sharp fa-solid fa-tag"></i> <%= link_to tag.name, search_path(tag_id: tag.id) %></span>
                     <% end %>
                   </div>
                 </div>

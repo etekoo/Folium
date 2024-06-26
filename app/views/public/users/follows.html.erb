@@ -1,0 +1,6 @@
+<h1>フォローしているユーザー一覧</h1>
+<ul>
+  <% @following.each do |followed| %>
+    <li><%= followed.name %></li>
+  <% end %>
+</ul>

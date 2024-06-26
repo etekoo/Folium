@@ -55,7 +55,7 @@ class PlantDiary < ApplicationRecord
   private
 
   def notify_followers
-    follower_ids = user.followers.pluck(:id)
+    follower_ids = user.follower.pluck(:id)
     if follower_ids.any?
       notifications = follower_ids.map do |follower_id|
         {

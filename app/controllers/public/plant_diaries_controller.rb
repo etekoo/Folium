@@ -72,6 +72,17 @@ class Public::PlantDiariesController < ApplicationController
     @plant_diaries = @tag.plant_diaries
   end
 
+  def timeline
+    @plant_diaries = PlantDiary.includes(:user, :tags).where(users: { is_active: true })
+    if user_signed_in?
+      followed_users = current_user.following_user
+      @followed_plant_diaries = PlantDiary.where(user: followed_users)
+    else
+      @followed_plant_diaries = []
+    end
+    @tags = Tag.all  
+  end
+
   private
 
   def set_plant_diary
