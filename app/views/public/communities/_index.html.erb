@@ -16,7 +16,7 @@
               <td><%= image_tag community.get_image, size:"30x30" %></td>
               <td><%= link_to community.name, community_path(community) %></td>
               <td><%= community.introduction %></td>
-              <% if community.owner_id == current_user.id %>
+              <% if community.owner_id.present? && current_user.present? && community.owner_id == current_user.id %>
                 <td>
                   <%= link_to 'Edit', edit_community_path(community), class: "btn btn-sm btn-success" %>
                 </td>
