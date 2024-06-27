@@ -1,6 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :set_user, only: [:mypage, :edit, :update, :withdraw,]
-  before_action :authenticate_user!, except: [:show] # ログインしているかどうかを確認
+  before_action :authenticate_user!
   before_action :ensure_current_user, only: [:edit, :update, :destroy]
   before_action :ensure_guest_user, only: [:edit]
 
