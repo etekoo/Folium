@@ -1,4 +1,5 @@
-# Green_Compass
+![ヘッダー画像5](https://github.com/etekoo/Green_Compass/assets/162948069/997f6718-7362-4403-897e-b5da2c29a35c)
+## Green_Compass
 
 ## サイト概要
 ### サイトテーマ
@@ -24,7 +25,13 @@ Green Compassは、観葉植物の育て方や種類、育成のコツなどを�
 - 観葉植物の写真やコレクションを共有したいとき
 
 ## 設計書
-- 後ほど作成予定
+- [ER図](https://drive.google.com/file/d/1NEg74qVw2sSHdFaYE-93xyYq_dC7_Ot-/view?usp=sharing)
+- [アプリケーション詳細設計](https://docs.google.com/spreadsheets/d/1iFvQ8Vsf954qZRJ_5nYjFTURqDzotCalAjpMkSdOaaA/edit?usp=sharing)
+- [テーブル定義書](https://docs.google.com/spreadsheets/d/1ZqEd_NzqR5Hp0T0hCOe4OQjt1B3nQGKN2QXV0ChaLjA/edit?usp=sharing)
+- [画面遷移図](https://drive.google.com/file/d/18Bk1JAzFvfTdsJzNjUrXTlRARgsU2IEX/view?usp=sharing)
+
+## 使用技術
+[![My Skills](https://skillicons.dev/icons?i=html,css,bootstrap,ruby,rails,js,aws,git,github)](https://skillicons.dev)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
@@ -34,5 +41,11 @@ Green Compassは、観葉植物の育て方や種類、育成のコツなどを�
 - IDE：Cloud9
 ​
 ## 使用素材
+
+- ICOOON MONO</br>
+- https://icooon-mono.com/license/</br>
+
+- 引用元の指示に従って利用します</br>
+
  著作権を考慮し、架空のデータを扱う予定です。 
  なお今後、実在するデータを利用する際には、事前に著作権保持者と契約を結んだ上で利用します。 
