@@ -59,7 +59,7 @@ class PlantDiary < ApplicationRecord
     if follower_ids.any?
       notifications = follower_ids.map do |follower_id|
         {
-          subject_type: 'Plant_diary',
+          subject_type: 'PlantDiary',
           subject_id: self.id,
           user_id: follower_id,
           action_type: 'new_plant_diary',

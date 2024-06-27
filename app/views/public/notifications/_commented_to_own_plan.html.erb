@@ -1,9 +1,13 @@
-<%= link_to transition_path(notification) do %>
-  <div>
-    <%= link_to notification.subject.user.name, user_path(notification.subject.user) %>
-    があなたの
-    <%= link_to '投稿', plan_path(notification.subject.plan) %>
-    にコメントしました
-    <%= " (#{time_ago_in_words(notification.created_at)}前)" %>
-  </div>
+<% if notification.subject.present? && notification.subject.user.present? && notification.subject.plant_diary.present? %>
+  <%= link_to transition_path(notification) do %>
+    <div>
+      <%= link_to notification.subject.user.name, user_path(notification.subject.user) %>
+      があなたの
+      <%= link_to '投稿', plant_diary_path(notification.subject.plant_diary) %>
+      にコメントしました
+      <%= " (#{time_ago_in_words(notification.created_at)}前)" %>
+    </div>
+  <% end %>
+<% else %>
+  <p>通知の情報が見つかりませんでした。</p>
 <% end %>
