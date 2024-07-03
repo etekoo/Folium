@@ -36,7 +36,7 @@ class PlantDiary < ApplicationRecord
   end
 
   # タグ機能
-  def save_plan_tags(tags)
+  def save_plant_diary_tags(tags)
     current_tags = self.tags.pluck(:name)
     current_tags ||= []
 

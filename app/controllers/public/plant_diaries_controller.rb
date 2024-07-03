@@ -1,7 +1,7 @@
 class Public::PlantDiariesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_plant_diary, only: [:show, :edit, :update, :destroy]
-  before_action :filter_activeUser, only: [:show]
+  before_action :filter_active_user, only: [:show]
   before_action :confirm_owner, only: [:edit, :update, :destroy]
 
   def new
@@ -22,12 +22,15 @@ class Public::PlantDiariesController < ApplicationController
   def create
     @plant_diary = PlantDiary.new(plant_diary_params)
     tag_list = params[:plant_diary][:tags].split(',') if params[:plant_diary][:tags]
-
+    tags = Vision.get_image_data(plant_diary_params[:image])
     @plant_diary.user_id = current_user.id
 
     if @plant_diary.save
-      @plant_diary.save_plan_tags(tag_list)
+      @plant_diary.save_plant_diary_tags(tag_list)
       flash[:notice] = '投稿に成功しました.'
+      tags.each do |tag|
+        @plant_diary.tags.create(name: tag)
+      end
       redirect_to @plant_diary
     else
       flash[:alert] = @plant_diary.errors.full_messages.join(", ")
@@ -43,7 +46,7 @@ class Public::PlantDiariesController < ApplicationController
     tag_list = params[:plant_diary][:tags].split(',') if params[:plant_diary][:tags]
     if @plant_diary.update(plant_diary_params)
       @plant_diary.tags.destroy_all
-      @plant_diary.save_plan_tags(tag_list)
+      @plant_diary.save_plant_tags(tag_list)
       flash[:notice] = '更新に成功しました.'
       redirect_to @plant_diary
     else
@@ -71,7 +74,7 @@ class Public::PlantDiariesController < ApplicationController
     @plant_diary = PlantDiary.find(params[:id])
   end
 
-  def filter_activeUser
+  def filter_active_user
     user = @plant_diary.user
     unless user.is_active?
       flash[:alert] = "指定のユーザーは退会済みです"
@@ -87,6 +90,6 @@ class Public::PlantDiariesController < ApplicationController
   end
 
   def plant_diary_params
-    params.require(:plant_diary).permit(:title, :content, :user_id, :image)
+    params.require(:plant_diary).permit(:title, :content, :image)
   end
 end
