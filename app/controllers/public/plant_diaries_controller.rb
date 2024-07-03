@@ -46,7 +46,7 @@ class Public::PlantDiariesController < ApplicationController
     tag_list = params[:plant_diary][:tags].split(',') if params[:plant_diary][:tags]
     if @plant_diary.update(plant_diary_params)
       @plant_diary.tags.destroy_all
-      @plant_diary.save_plant_tags(tag_list)
+      @plant_diary.save_plant_diary_tags(tag_list)
       flash[:notice] = '更新に成功しました.'
       redirect_to @plant_diary
     else

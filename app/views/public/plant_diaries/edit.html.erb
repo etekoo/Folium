@@ -13,6 +13,11 @@
           <%= form.text_area :content, class: 'form-control', rows: 6 %>
         </div>
 
+        <div class="pt-2 field">
+          <%= form.label :tags %>
+          <%= form.text_field :tags, value: @tag_list, class: 'form-control' %>
+        </div>
+
         <div class="pt-5 actions text-center">
           <%= form.submit '更新する', class: 'btn btn-primary' %>
           <%= link_to '戻る', :back, class: 'btn btn-secondary' %>

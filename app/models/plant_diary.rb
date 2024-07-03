@@ -37,6 +37,8 @@ class PlantDiary < ApplicationRecord
 
   # タグ機能
   def save_plant_diary_tags(tags)
+    tags ||= []  # nilの場合は空の配列に置き換え
+
     current_tags = self.tags.pluck(:name)
     current_tags ||= []
 
